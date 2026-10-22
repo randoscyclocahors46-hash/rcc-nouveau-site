@@ -95,7 +95,7 @@
       <strong>Cyclotourisme</strong>
       <span>En selle pour de nouvelles aventures</span>
     </a>
-   <a class="door" href="/media/semaine%2042.pdf" target="_blank">
+   <a class="door" href="#planning">
       <span class="emoji">📅</span>
       <strong>Planning</strong>
       <span>Les sorties et les documents du club</span>
@@ -132,6 +132,13 @@
   <footer>
     © Randos-cyclo-Cahors (RCC) · Tous ensemble sur les chemins
   </footer>
+  
+<section id="planning" style="max-width:900px; margin:40px auto; padding:25px; background:#fff; border-radius:12px;">
+  <h2>📅 Les plannings du club</h2>
+  <p>Retrouve ici les plannings et documents des sorties.</p>
+  <div id="liste-plannings">Chargement des plannings...</div>
+</section>
+
 <script>
 fetch('./content/pages/accueil.json')
   .then(reponse => {
@@ -147,6 +154,54 @@ fetch('./content/pages/accueil.json')
   .catch(erreur => {
     console.log('Le contenu de la page reste celui par défaut.', erreur);
   });
+
+fetch('https://api.github.com/repos/randoscyclocahors46-hash/rcc-nouveau-site/contents/content/plannings')
+  .then(reponse => {
+    if (!reponse.ok) throw new Error('Impossible de charger les plannings');
+    return reponse.json();
+  })
+  .then(fichiers => {
+    const liste = document.getElementById('liste-plannings');
+    if (!liste) return;
+    liste.textContent = '';
+
+    const documents = fichiers.filter(fichier =>
+      fichier.name.endsWith('.json')
+    );
+
+    if (documents.length === 0) {
+      liste.textContent = 'Aucun planning disponible pour le moment.';
+      return;
+    }
+
+    return Promise.all(documents.map(fichier =>
+      fetch(fichier.download_url).then(reponse => {
+        if (!reponse.ok) throw new Error('Document de planning inaccessible');
+        return reponse.json();
+      })
+    )).then(plannings => {
+      plannings.sort((a, b) => a.titre.localeCompare(b.titre, 'fr'));
+
+      plannings.forEach(planning => {
+        const lien = document.createElement('a');
+        lien.textContent = '📄 ' + planning.titre;
+        lien.href = planning.fichier;
+        lien.target = '_blank';
+        lien.style.display = 'block';
+        lien.style.margin = '12px 0';
+        liste.appendChild(lien);
+      });
+    });
+  })
+  .catch(erreur => {
+    const liste = document.getElementById('liste-plannings');
+    if (liste) {
+      liste.textContent = 'Les plannings ne peuvent pas être chargés pour le moment.';
+    }
+    console.log(erreur);
+  });
 </script>
+
+
 </body>
 </html>
