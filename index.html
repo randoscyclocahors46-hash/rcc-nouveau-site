@@ -132,5 +132,21 @@
   <footer>
     © Randos-cyclo-Cahors (RCC) · Tous ensemble sur les chemins
   </footer>
+<script>
+fetch('./content/pages/accueil.json')
+  .then(reponse => {
+    if (!reponse.ok) {
+      throw new Error('Impossible de charger le contenu');
+    }
+    return reponse.json();
+  })
+  .then(page => {
+    document.getElementById('titre-accueil').textContent = page.titre;
+    document.getElementById('texte-accueil').textContent = page.texte;
+  })
+  .catch(erreur => {
+    console.log('Le contenu de la page reste celui par défaut.', erreur);
+  });
+</script>
 </body>
 </html>
