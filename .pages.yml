@@ -1,0 +1,25 @@
+
+media:
+  input: media
+  output: /media
+
+content:
+  - name: pages
+    label: Pages du site
+    type: collection
+    path: content/pages
+    format: json
+    filename: "{primary}.json"
+    view:
+      primary: titre
+    fields:
+      - name: titre
+        label: Titre de la page
+        type: string
+        required: true
+      - name: texte
+        label: Texte de la page
+        type: rich-text
+      - name: image
+        label: Image principale
+        type: image
