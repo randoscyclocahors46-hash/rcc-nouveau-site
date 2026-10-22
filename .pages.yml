@@ -23,3 +23,19 @@ content:
       - name: image
         label: Image principale
         type: image
+  - name: plannings
+    label: Plannings PDF
+    type: collection
+    path: content/plannings
+    format: json
+    filename: "{primary}.json"
+    view:
+      primary: titre
+    fields:
+      - name: titre
+        label: Titre du planning
+        type: string
+        required: true
+      - name: fichier
+        label: Document PDF
+        type: file
