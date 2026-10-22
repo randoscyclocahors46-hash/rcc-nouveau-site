@@ -1,0 +1,133 @@
+
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Randos-cyclo-Cahors (RCC)</title>
+  <style>
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      color: #fff;
+      background: #254b36;
+    }
+    header {
+      text-align: center;
+      padding: 32px 16px 22px;
+      background: #21452f;
+    }
+    h1 { margin: 0 0 10px; font-size: clamp(28px, 5vw, 44px); }
+    header p { margin: 0; font-size: 17px; }
+    .hero {
+      min-height: 320px;
+      padding: 45px 18px;
+      text-align: center;
+      background:
+        linear-gradient(#163d2c66, #163d2c99),
+        url("https://images.unsplash.com/photo-1472396961693-142e6e269027?auto=format&fit=crop&w=1800&q=85")
+        center 55% / cover;
+    }
+    .hero h2 { font-size: clamp(25px, 4vw, 38px); }
+    .hero p { font-size: 18px; line-height: 1.6; }
+    .doors {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(210px, 1fr));
+      gap: 20px;
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 30px 20px 45px;
+    }
+    .door {
+      display: block;
+      min-height: 180px;
+      padding: 25px 16px;
+      color: white;
+      text-align: center;
+      text-decoration: none;
+      background: #80512f;
+      border: 7px solid #c9a16b;
+      border-radius: 10px;
+      box-shadow: inset 0 0 0 3px #603a23, 0 5px 12px #102b1d66;
+      transition: transform .25s, background .25s;
+    }
+    .door:hover, .door:focus {
+      transform: translateY(-6px);
+      background: #98663b;
+    }
+    .door .emoji { display: block; font-size: 38px; margin-bottom: 12px; }
+    .door strong { display: block; font-size: 20px; margin-bottom: 8px; }
+    .door span:last-child { font-size: 14px; line-height: 1.4; }
+    .note { text-align: center; padding: 0 20px 30px; }
+    footer {
+      text-align: center;
+      padding: 22px;
+      background: #183523;
+      font-size: 14px;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>Randos-cyclo-Cahors</h1>
+    <p>RCC · Marchons, pédalons et partageons !</p>
+  </header>
+
+  <section class="hero">
+    <h2>Bienvenue chez nous !</h2>
+    <p>La nature, l'amitié et le plaisir de se retrouver.<br>
+    Choisissez une porte pour découvrir la vie du club.</p>
+    <p>🚶‍♂️ Chaque chemin nous réserve une belle rencontre !</p>
+  </section>
+
+  <main class="doors">
+    <a class="door" href="#randonnees">
+      <span class="emoji">🥾</span>
+      <strong>Randonnées</strong>
+      <span>Nos sorties à pied et nos chemins préférés</span>
+    </a>
+    <a class="door" href="#cyclotourisme">
+      <span class="emoji">🚴</span>
+      <strong>Cyclotourisme</strong>
+      <span>En selle pour de nouvelles aventures</span>
+    </a>
+    <a class="door" href="#planning">
+      <span class="emoji">📅</span>
+      <strong>Planning</strong>
+      <span>Les sorties et les documents du club</span>
+    </a>
+    <a class="door" href="#photos">
+      <span class="emoji">📸</span>
+      <strong>Photos, vidéos et musique</strong>
+      <span>Nos souvenirs en images et en chansons</span>
+    </a>
+    <a class="door" href="#club">
+      <span class="emoji">🎉</span>
+      <strong>Vie du club</strong>
+      <span>Fêtes, événements et actualités</span>
+    </a>
+    <a class="door" href="#reservations">
+      <span class="emoji">📝</span>
+      <strong>Réservations</strong>
+      <span>Inscription aux événements du club</span>
+    </a>
+    <a class="door" href="#membres">
+      <span class="emoji">🤝</span>
+      <strong>Espace adhérents</strong>
+      <span>Informations et échanges entre membres</span>
+    </a>
+    <a class="door" href="#forum">
+      <span class="emoji">💬</span>
+      <strong>Forum et suggestions</strong>
+      <span>Vos idées et vos messages</span>
+    </a>
+  </main>
+
+  <p class="note">Un club, des chemins, des rencontres et beaucoup de convivialité !</p>
+
+  <footer>
+    © Randos-cyclo-Cahors (RCC) · Tous ensemble sur les chemins
+  </footer>
+</body>
+</html>
