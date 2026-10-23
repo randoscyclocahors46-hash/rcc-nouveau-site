@@ -39,3 +39,20 @@ content:
       - name: fichier
         label: Document PDF
         type: file
+          - name: photos
+    label: Photos RCC
+    type: collection
+    path: content/photos
+    format: json
+    filename: "{primary}.json"
+    view:
+      primary: titre
+    fields:
+      - name: titre
+        label: Titre de la photo
+        type: string
+        required: true
+      - name: image
+        label: Photo
+        type: image
+        required: true
