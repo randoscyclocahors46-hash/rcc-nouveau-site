@@ -154,6 +154,64 @@
     Chargement des photos...
   </div>
 </section>
+  
+<script>
+fetch('https://api.github.com/repos/randoscyclocahors46-hash/rcc-nouveau-site/contents/content/photos')
+  .then(reponse => {
+    if (!reponse.ok) throw new Error('Impossible de charger les photos');
+    return reponse.json();
+  })
+  .then(fichiers => {
+    const liste = document.getElementById('liste-photos');
+    if (!liste) return;
+    liste.textContent = '';
+
+    const documents = fichiers.filter(fichier =>
+      fichier.name.endsWith('.json')
+    );
+
+    if (documents.length === 0) {
+      liste.textContent = 'Aucune photo disponible pour le moment.';
+      return;
+    }
+
+    return Promise.all(documents.map(fichier =>
+      fetch(fichier.download_url).then(reponse => {
+        if (!reponse.ok) throw new Error('Photo inaccessible');
+        return reponse.json();
+      })
+    )).then(photos => {
+      photos.forEach(photo => {
+        const carte = document.createElement('div');
+        const image = document.createElement('img');
+
+        image.src = photo.image.startsWith('/')
+          ? 'https://raw.githubusercontent.com/randoscyclocahors46-hash/rcc-nouveau-site/main' + photo.image
+          : photo.image;
+        image.alt = photo.titre || 'Photo du club RCC';
+        image.style.width = '100%';
+        image.style.height = '220px';
+        image.style.objectFit = 'cover';
+        image.style.borderRadius = '12px';
+
+        const titre = document.createElement('p');
+        titre.textContent = photo.titre || 'Photo du club RCC';
+
+        carte.appendChild(image);
+        carte.appendChild(titre);
+        liste.appendChild(carte);
+      });
+    });
+  })
+  .catch(erreur => {
+    const liste = document.getElementById('liste-photos');
+    if (liste) {
+      liste.textContent = 'Les photos ne peuvent pas être chargées pour le moment.';
+    }
+    console.log(erreur);
+  });
+</script>
+
 
 
 <script>
