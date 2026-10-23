@@ -26,7 +26,7 @@ content:
   - name: plannings
     label: Plannings PDF
     type: collection
-    path: content/plannings
+    path: content/planning
     format: json
     filename: "{primary}.json"
     view:
