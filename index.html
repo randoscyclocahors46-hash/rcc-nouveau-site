@@ -348,6 +348,34 @@ fetch('https://api.github.com/repos/randoscyclocahors46-hash/rcc-nouveau-site/co
   });
 </script>
 
+<script>
+fetch('/content/apparence/accueil.json')
+  .then(response => {
+    if (!response.ok) throw new Error('Réglages indisponibles');
+    return response.json();
+  })
+  .then(reglages => {
+    if (reglages.titre) {
+      document.getElementById('titre-accueil').textContent = reglages.titre;
+    }
 
+    if (reglages.slogan) {
+      const titre = document.getElementById('titre-accueil');
+      if (titre && titre.nextElementSibling) {
+        titre.nextElementSibling.textContent = reglages.slogan;
+      }
+    }
+
+    if (reglages.couleur) {
+      document.querySelector('header').style.backgroundColor = reglages.couleur;
+    }
+
+    const presentation = document.getElementById('presentation-accueil');
+    if (presentation && reglages.presentation) {
+      presentation.textContent = reglages.presentation;
+    }
+  })
+  .catch(() => {});
+</script>
 </body>
 </html>
