@@ -140,79 +140,144 @@
 </section>
 
 
-<section id="photos" style="max-width:900px; margin:40px auto; padding:25px; background:#fff; border-radius:12px;">
+
+<section id="photos" style="max-width:1000px; margin:40px auto; padding:25px; background:#fff; border-radius:12px;">
   <h2>📸 Photos du club RCC</h2>
   <p>Retrouvons en images nos randonnées, nos sorties cyclo et nos moments de convivialité.</p>
 
-  <img
-    src="https://raw.githubusercontent.com/randoscyclocahors46-hash/rcc-nouveau-site/main/media/IMG_20261016_135020.jpg"
-    alt="Photo des activités du club RCC"
-    style="display:block; max-width:100%; height:auto; margin:20px auto; border-radius:12px;"
-  >
+  <div id="liste-photos" style="display:grid; grid-template-columns:repeat(auto-fit,minmax(220px,1fr)); gap:20px; margin-top:25px;">
+    Chargement des albums...
+  </div>
 
-  <div id="liste-photos" style="display:grid; grid-template-columns:repeat(auto-fit,minmax(200px,1fr)); gap:15px; margin-top:20px;">
-    Chargement des photos...
+  <div id="visionneuse" style="display:none; margin-top:30px; text-align:center;">
+    <h3 id="titre-album"></h3>
+    <p id="date-album"></p>
+    <img id="photo-active" src="" alt="Photo de randonnée" style="width:100%; max-width:800px; max-height:65vh; object-fit:contain; border-radius:12px;">
+    <p id="compteur-photos"></p>
+    <button id="photo-precedente" type="button">❮ Précédente</button>
+    <button id="photo-suivante" type="button">Suivante ❯</button>
+    <p><button id="fermer-album" type="button">Fermer l'album</button></p>
   </div>
 </section>
-  
+
 <script>
-fetch('https://api.github.com/repos/randoscyclocahors46-hash/rcc-nouveau-site/contents/content/photos')
-  .then(reponse => {
-    if (!reponse.ok) throw new Error('Impossible de charger les photos');
-    return reponse.json();
-  })
-  .then(fichiers => {
-    const liste = document.getElementById('liste-photos');
-    if (!liste) return;
-    liste.textContent = '';
+(function () {
+  const base = 'https://raw.githubusercontent.com/randoscyclocahors46-hash/rcc-nouveau-site/main';
+  const liste = document.getElementById('liste-photos');
+  const visionneuse = document.getElementById('visionneuse');
+  if (!liste || !visionneuse) return;
 
-    const documents = fichiers.filter(fichier =>
-      fichier.name.endsWith('.json')
-    );
+  let photosActives = [];
+  let position = 0;
 
-    if (documents.length === 0) {
-      liste.textContent = 'Aucune photo disponible pour le moment.';
-      return;
+  function urlImage(image) {
+    if (!image) return '';
+    if (image.startsWith('/')) return base + image;
+    return image;
+  }
+
+  function afficherPhoto() {
+    if (!photosActives.length) return;
+    document.getElementById('photo-active').src = urlImage(photosActives[position]);
+    document.getElementById('compteur-photos').textContent =
+      'Photo ' + (position + 1) + ' sur ' + photosActives.length;
+    document.getElementById('photo-precedente').disabled = position === 0;
+    document.getElementById('photo-suivante').disabled = position === photosActives.length - 1;
+  }
+
+  function ouvrirAlbum(album) {
+    photosActives = Array.isArray(album.galerie) ? album.galerie.filter(Boolean) : [];
+    if (!photosActives.length && album.image) photosActives = [album.image];
+    if (!photosActives.length) return;
+
+    position = 0;
+    document.getElementById('titre-album').textContent = album.titre || 'Album RCC';
+    document.getElementById('date-album').textContent = album.date || '';
+    visionneuse.style.display = 'block';
+    afficherPhoto();
+    visionneuse.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  }
+
+  document.getElementById('photo-precedente').addEventListener('click', function () {
+    if (position > 0) {
+      position--;
+      afficherPhoto();
     }
+  });
 
-    return Promise.all(documents.map(fichier =>
-      fetch(fichier.download_url).then(reponse => {
-        if (!reponse.ok) throw new Error('Photo inaccessible');
-        return reponse.json();
-      })
-    )).then(photos => {
-      photos.forEach(photo => {
+  document.getElementById('photo-suivante').addEventListener('click', function () {
+    if (position < photosActives.length - 1) {
+      position++;
+      afficherPhoto();
+    }
+  });
+
+  document.getElementById('fermer-album').addEventListener('click', function () {
+    visionneuse.style.display = 'none';
+  });
+
+  fetch('https://api.github.com/repos/randoscyclocahors46-hash/rcc-nouveau-site/contents/content/photos')
+    .then(function (reponse) {
+      if (!reponse.ok) throw new Error('Impossible de charger les albums');
+      return reponse.json();
+    })
+    .then(function (fichiers) {
+      const documents = fichiers.filter(function (fichier) {
+        return fichier.name.endsWith('.json');
+      });
+
+      return Promise.all(documents.map(function (fichier) {
+        return fetch(fichier.download_url).then(function (reponse) {
+          if (!reponse.ok) throw new Error('Album inaccessible');
+          return reponse.json();
+        });
+      }));
+    })
+    .then(function (albums) {
+      liste.textContent = '';
+
+      if (!albums.length) {
+        liste.textContent = 'Aucun album disponible pour le moment.';
+        return;
+      }
+
+      albums.forEach(function (album) {
         const carte = document.createElement('div');
-        const image = document.createElement('img');
+        carte.style.cssText = 'border:1px solid #ddd; border-radius:12px; padding:12px; cursor:pointer; background:#fff;';
 
-        image.src = photo.image.startsWith('/')
-          ? 'https://raw.githubusercontent.com/randoscyclocahors46-hash/rcc-nouveau-site/main' + photo.image
-          : photo.image;
-        image.alt = photo.titre || 'Photo du club RCC';
-        image.style.width = '100%';
-        image.style.height = '220px';
-        image.style.objectFit = 'cover';
-        image.style.borderRadius = '12px';
+        const couverture = document.createElement('img');
+        couverture.src = urlImage(album.image);
+        couverture.alt = album.titre || 'Album photos RCC';
+        couverture.style.cssText = 'width:100%; height:220px; object-fit:cover; border-radius:8px;';
 
-        const titre = document.createElement('p');
-        titre.textContent = photo.titre || 'Photo du club RCC';
+        const titre = document.createElement('h3');
+        titre.textContent = album.titre || 'Album photos RCC';
 
-        carte.appendChild(image);
+        const date = document.createElement('p');
+        date.textContent = album.date || '';
+
+        const bouton = document.createElement('button');
+        bouton.type = 'button';
+        bouton.textContent = 'Voir les photos';
+
+        carte.appendChild(couverture);
         carte.appendChild(titre);
+        carte.appendChild(date);
+        carte.appendChild(bouton);
+
+        carte.addEventListener('click', function () {
+          ouvrirAlbum(album);
+        });
+
         liste.appendChild(carte);
       });
+    })
+    .catch(function (erreur) {
+      liste.textContent = 'Les albums ne peuvent pas être chargés pour le moment.';
+      console.log(erreur);
     });
-  })
-  .catch(erreur => {
-    const liste = document.getElementById('liste-photos');
-    if (liste) {
-      liste.textContent = 'Les photos ne peuvent pas être chargées pour le moment.';
-    }
-    console.log(erreur);
-  });
+})();
 </script>
-
-
 
 <script>
 fetch('./content/pages/accueil.json')
