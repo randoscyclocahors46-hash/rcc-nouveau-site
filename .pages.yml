@@ -65,3 +65,27 @@ content:
         type: image
         options:
           multiple: true
+  - name: apparence
+    label: Apparence du site
+    type: file
+    path: content/apparence/accueil.json
+    format: json
+    fields:
+      - name: titre
+        label: Titre du site
+        type: string
+      - name: slogan
+        label: Slogan du site
+        type: string
+      - name: couleur
+        label: Couleur principale
+        type: string
+      - name: ambiance
+        label: Ambiance
+        type: string
+      - name: presentation
+        label: Présentation de l'accueil
+        type: text
+      - name: image_accueil
+        label: Image d'accueil
+        type: image
