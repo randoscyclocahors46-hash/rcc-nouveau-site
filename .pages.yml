@@ -39,8 +39,9 @@ content:
       - name: fichier
         label: Document PDF
         type: file
-          - name: photos
-    label: Photos RCC
+    
+  - name: photos
+    label: Albums photos RCC
     type: collection
     path: content/photos
     format: json
@@ -49,10 +50,18 @@ content:
       primary: titre
     fields:
       - name: titre
-        label: Titre de la photo
+        label: Nom de la sortie
         type: string
         required: true
+      - name: date
+        label: Date de la sortie
+        type: date
       - name: image
-        label: Photo
+        label: Photo de couverture
         type: image
         required: true
+      - name: galerie
+        label: Toutes les photos de l'album
+        type: image
+        options:
+          multiple: true
