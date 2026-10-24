@@ -66,6 +66,14 @@
       background: #183523;
       font-size: 14px;
     }
+    @keyframes marcheur {
+  from {
+    left: 0%;
+  }
+  to {
+    left: 75%;
+  }
+}
   </style>
 </head>
 <body>
@@ -137,7 +145,7 @@
     id="randonneur-anime"
     src="/media/Randonneur%20senior%20en%20marche.png"
     alt="Randonneur du club RCC"
-    style="position:absolute; left:0%; bottom:0%; width:8%; height:auto; z-index:5; pointer-events:none;"
+    style="position:absolute; left:0%; bottom:0%; width:12%; height:auto; z-index:5; pointer-events:none; animation: marcheur 12s ease-in-out infinite alternate;"
   >
 
   <a href="#randonnees" aria-label="Randonnées"
