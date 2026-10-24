@@ -66,18 +66,13 @@
       background: #183523;
       font-size: 14px;
     }
-    @keyframes marcheur {
+  @keyframes marcheur {
   from {
-    left: 0%;
+    left: var(--depart, 0%);
   }
   to {
-    left: 75%;
+    left: var(--arrivee, 0%);
   }
-}
-    #sous-rubriques-accueil {
-  opacity: 0;
-  visibility: hidden;
-  transition: opacity 1s ease;
 }
 
 #sous-rubriques-accueil.visible {
@@ -155,7 +150,7 @@
     id="randonneur-anime"
     src="/media/Randonneur%20senior%20en%20marche.png"
     alt="Randonneur du club RCC"
-    style="position:absolute; left:0%; bottom:0%; width:12%; height:auto; z-index:5; pointer-events:none; animation: marcheur 12s ease-in-out forwards;"
+    style="position:absolute; left:0%; bottom:0%; width:12%; height:auto; z-index:5; pointer-events:none;animation: none; "
   >
 
   <a href="#randonnees" aria-label="Randonnées"
@@ -469,19 +464,35 @@ fetch('/content/apparence/accueil.json')
   })
   .catch(() => {});
 </script>
-  <script>
+ <script>
 document.addEventListener('DOMContentLoaded', function () {
   const marcheur = document.getElementById('randonneur-anime');
-  const rubriques = document.getElementById('rubriques-accueil');
+  const portes = document.querySelectorAll('.hero a[href^="#"]');
 
-  if (marcheur && rubriques) {
-    marcheur.addEventListener('animationend', function () {
-      rubriques.style.display = 'flex';
-      rubriques.classList.add('visible');
-    }, { once: true });
-  }
+  portes.forEach(function (porte) {
+    porte.addEventListener('click', function (event) {
+      event.preventDefault();
+
+      const destination = porte.getAttribute('href');
+      const position = porte.style.left || '0%';
+
+      marcheur.style.animation = 'none';
+      marcheur.style.left = '0%';
+      marcheur.offsetHeight;
+
+      marcheur.style.setProperty('--depart', '0%');
+      marcheur.style.setProperty('--arrivee', position);
+      marcheur.style.animation = 'marcheur 3s ease-in-out forwards';
+
+      marcheur.onanimationend = function () {
+        window.location.hash = destination;
+        marcheur.onanimationend = null;
+      };
+    });
+  });
 });
 </script>
+  
 </body>
 </html>
   
