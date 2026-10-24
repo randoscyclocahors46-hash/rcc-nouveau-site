@@ -474,7 +474,7 @@ document.addEventListener('DOMContentLoaded', function () {
       event.preventDefault();
 
       const destination = porte.getAttribute('href');
-      const position = porte.style.left || '0%';
+      const position = (parseFloat(porte.style.left) + parseFloat(porte.style.width) / 2) + '%';
 
       marcheur.style.animation = 'none';
       marcheur.style.left = '0%';
