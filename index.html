@@ -483,7 +483,8 @@ document.addEventListener('DOMContentLoaded', function () {
       const porteCadre = porte.getBoundingClientRect();
 
       const destination =
-        porteCadre.left + porteCadre.width / 2 - cadre.left;
+  (parseFloat(porte.style.left) +
+   parseFloat(porte.style.width) / 2) / 100 * cadre.width;
 
       const largeurMarcheur = marcheur.getBoundingClientRect().width;
       const positionFinale =
