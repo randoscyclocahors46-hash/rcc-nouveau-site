@@ -74,6 +74,16 @@
     left: 75%;
   }
 }
+    #sous-rubriques-accueil {
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 1s ease;
+}
+
+#sous-rubriques-accueil.visible {
+  opacity: 1;
+  visibility: visible;
+}
   </style>
 </head>
 <body>
@@ -85,7 +95,7 @@
   <p><strong>RCC · Marchons, pédalons et partageons !</strong></p>
 </div>
     
-<div id="rubriques-accueil" style="max-width:900px; margin:25px auto; display:flex; flex-wrap:wrap; justify-content:center; gap:12px;">
+<div id="rubriques-accueil" style="max-width:900px; margin:25px auto; display:none; flex-wrap:wrap; justify-content:center; gap:12px;">
 
   <button onclick="document.getElementById('page-assemblee').style.display='block'; document.getElementById('page-conseil').style.display='none'; document.getElementById('page-voeux').style.display='none'; document.getElementById('page-bureau').style.display='none';" style="background:#2e6b3f; color:white; padding:14px 20px; border:0; border-radius:8px; cursor:pointer;">Assemblée générale</button>
 
@@ -145,7 +155,7 @@
     id="randonneur-anime"
     src="/media/Randonneur%20senior%20en%20marche.png"
     alt="Randonneur du club RCC"
-    style="position:absolute; left:0%; bottom:0%; width:12%; height:auto; z-index:5; pointer-events:none; animation: marcheur 12s ease-in-out infinite alternate;"
+    style="position:absolute; left:0%; bottom:0%; width:12%; height:auto; z-index:5; pointer-events:none; animation: marcheur 12s ease-in-out forwards;"
   >
 
   <a href="#randonnees" aria-label="Randonnées"
@@ -458,6 +468,19 @@ fetch('/content/apparence/accueil.json')
     }
   })
   .catch(() => {});
+</script>
+  <script>
+document.addEventListener('DOMContentLoaded', function () {
+  const marcheur = document.getElementById('randonneur-anime');
+  const rubriques = document.getElementById('rubriques-accueil');
+
+  if (marcheur && rubriques) {
+    marcheur.addEventListener('animationend', function () {
+      rubriques.style.display = 'flex';
+      rubriques.classList.add('visible');
+    }, { once: true });
+  }
+});
 </script>
 </body>
 </html>
