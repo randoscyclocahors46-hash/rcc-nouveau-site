@@ -466,6 +466,7 @@ fetch('/content/apparence/accueil.json')
 </script>
 
 
+
 <script>
 document.addEventListener('DOMContentLoaded', function () {
   const marcheur = document.getElementById('randonneur-anime');
@@ -481,28 +482,47 @@ document.addEventListener('DOMContentLoaded', function () {
 
       const cadre = portail.getBoundingClientRect();
       const porteCadre = porte.getBoundingClientRect();
+      const largeur = marcheur.getBoundingClientRect().width;
+      const hauteur = marcheur.getBoundingClientRect().height;
 
-      const destination =
-  (parseFloat(porte.style.left) +
-   parseFloat(porte.style.width) / 2) / 100 * cadre.width;
+      const departX = 0;
+      const departY = cadre.height - hauteur;
 
-      const largeurMarcheur = marcheur.getBoundingClientRect().width;
-      const positionFinale =
-        Math.max(0, Math.min(
-          cadre.width - largeurMarcheur,
-          destination - largeurMarcheur / 2
-        ));
+      const arriveeX = Math.max(
+        0,
+        Math.min(
+          cadre.width - largeur,
+          porteCadre.left + porteCadre.width / 2
+            - cadre.left - largeur / 2
+        )
+      );
+
+      const arriveeY = Math.max(
+        0,
+        Math.min(
+          cadre.height - hauteur,
+          porteCadre.top + porteCadre.height / 2
+            - cadre.top - hauteur / 2
+        )
+      );
 
       marcheur.style.animation = 'none';
-      marcheur.style.left = '0%';
+      marcheur.style.transition = 'none';
       marcheur.style.right = 'auto';
+      marcheur.style.bottom = 'auto';
+      marcheur.style.left = departX + 'px';
+      marcheur.style.top = departY + 'px';
 
       void marcheur.offsetWidth;
 
-      marcheur.style.transition = 'left 3s ease-in-out';
-      marcheur.style.left = positionFinale + 'px';
+      marcheur.style.transition =
+        'left 3s ease-in-out, top 3s ease-in-out';
 
-      marcheur.ontransitionend = function () {
+      marcheur.style.left = arriveeX + 'px';
+      marcheur.style.top = arriveeY + 'px';
+
+      marcheur.ontransitionend = function (e) {
+        if (e.propertyName !== 'top') return;
         marcheur.ontransitionend = null;
         marcheur.style.transition = '';
         window.location.hash = porte.getAttribute('href');
@@ -511,6 +531,7 @@ document.addEventListener('DOMContentLoaded', function () {
   });
 });
 </script>
+
 
 </body>
 </html>
