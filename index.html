@@ -465,34 +465,55 @@ fetch('/content/apparence/accueil.json')
   .catch(() => {});
 </script>
  <script>
+
+<script>
 document.addEventListener('DOMContentLoaded', function () {
   const marcheur = document.getElementById('randonneur-anime');
-  const portes = document.querySelectorAll('.hero a[href^="#"]');
+  const portail = document.querySelector('.hero');
+
+  if (!marcheur || !portail) return;
+
+  const portes = portail.querySelectorAll('a[href^="#"]');
 
   portes.forEach(function (porte) {
     porte.addEventListener('click', function (event) {
       event.preventDefault();
 
-      const destination = porte.getAttribute('href');
-      const position = (parseFloat(porte.style.left) + parseFloat(porte.style.width) / 2) + '%';
+      const cadre = portail.getBoundingClientRect();
+      const porteCadre = porte.getBoundingClientRect();
+
+      const centrePorte =
+        porteCadre.left + porteCadre.width / 2 - cadre.left;
+
+      const positionFinale =
+        (centrePorte / cadre.width) * 100;
 
       marcheur.style.animation = 'none';
       marcheur.style.left = '0%';
-      marcheur.offsetHeight;
 
       marcheur.style.setProperty('--depart', '0%');
-      marcheur.style.setProperty('--arrivee', position);
-      marcheur.style.animation = 'marcheur 3s ease-in-out forwards';
+      marcheur.style.setProperty(
+        '--arrivee',
+        positionFinale + '%'
+      );
+
+      void marcheur.offsetWidth;
+
+      marcheur.style.animation =
+        'marcheur 3s ease-in-out forwards';
 
       marcheur.onanimationend = function () {
-        window.location.hash = destination;
         marcheur.onanimationend = null;
+        window.location.hash = porte.getAttribute('href');
       };
     });
   });
 });
 </script>
-  
+
 </body>
 </html>
+
+  
+
   
