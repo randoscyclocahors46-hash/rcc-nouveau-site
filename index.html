@@ -76,6 +76,44 @@
   <p>Retrouvons-nous pour marcher, pédaler, découvrir de beaux paysages et partager de bons moments dans la convivialité.</p>
   <p><strong>RCC · Marchons, pédalons et partageons !</strong></p>
 </div>
+    
+<div id="rubriques-accueil" style="max-width:900px; margin:25px auto; display:flex; flex-wrap:wrap; justify-content:center; gap:12px;">
+
+  <button onclick="document.getElementById('page-assemblee').style.display='block'; document.getElementById('page-conseil').style.display='none'; document.getElementById('page-voeux').style.display='none'; document.getElementById('page-bureau').style.display='none';" style="background:#2e6b3f; color:white; padding:14px 20px; border:0; border-radius:8px; cursor:pointer;">Assemblée générale</button>
+
+  <button onclick="document.getElementById('page-conseil').style.display='block'; document.getElementById('page-assemblee').style.display='none'; document.getElementById('page-voeux').style.display='none'; document.getElementById('page-bureau').style.display='none';" style="background:#2e6b3f; color:white; padding:14px 20px; border:0; border-radius:8px; cursor:pointer;">Conseil d’administration</button>
+
+  <button onclick="document.getElementById('page-voeux').style.display='block'; document.getElementById('page-assemblee').style.display='none'; document.getElementById('page-conseil').style.display='none'; document.getElementById('page-bureau').style.display='none';" style="background:#2e6b3f; color:white; padding:14px 20px; border:0; border-radius:8px; cursor:pointer;">Les vœux du Président</button>
+
+  <button onclick="document.getElementById('page-bureau').style.display='block'; document.getElementById('page-assemblee').style.display='none'; document.getElementById('page-conseil').style.display='none'; document.getElementById('page-voeux').style.display='none';" style="background:#2e6b3f; color:white; padding:14px 20px; border:0; border-radius:8px; cursor:pointer;">Le bureau</button>
+
+</div>
+    
+<div id="page-assemblee" style="display:none; max-width:900px; margin:25px auto; padding:25px; background:#f4f8f3; border-radius:12px;">
+  <h2>Assemblée générale</h2>
+  <p>Retrouvez ici les informations et les comptes rendus de l’Assemblée générale du RCC.</p>
+  <button onclick="document.getElementById('page-assemblee').style.display='none';" style="background:#2e6b3f; color:white; padding:10px 16px; border:0; border-radius:8px; cursor:pointer;">Retour à l’accueil</button>
+</div>
+
+<div id="page-conseil" style="display:none; max-width:900px; margin:25px auto; padding:25px; background:#f4f8f3; border-radius:12px;">
+  <h2>Conseil d’administration</h2>
+  <p>Retrouvez ici les informations sur le Conseil d’administration du RCC.</p>
+  <button onclick="document.getElementById('page-conseil').style.display='none';" style="background:#2e6b3f; color:white; padding:10px 16px; border:0; border-radius:8px; cursor:pointer;">Retour à l’accueil</button>
+</div>
+
+<div id="page-voeux" style="display:none; max-width:900px; margin:25px auto; padding:25px; background:#f4f8f3; border-radius:12px;">
+  <h2>Les vœux du Président</h2>
+  <p>Retrouvez ici le message du Président aux adhérents du RCC.</p>
+  <button onclick="document.getElementById('page-voeux').style.display='none';" style="background:#2e6b3f; color:white; padding:10px 16px; border:0; border-radius:8px; cursor:pointer;">Retour à l’accueil</button>
+</div>
+
+<div id="page-bureau" style="display:none; max-width:900px; margin:25px auto; padding:25px; background:#f4f8f3; border-radius:12px;">
+  <h2>Le bureau</h2>
+  <p>Retrouvez ici la présentation des membres du bureau du RCC.</p>
+  <button onclick="document.getElementById('page-bureau').style.display='none';" style="background:#2e6b3f; color:white; padding:10px 16px; border:0; border-radius:8px; cursor:pointer;">Retour à l’accueil</button>
+</div>
+
+
 
 <p>RCC · Marchons, pédalons et partageons !</p>
   <img
