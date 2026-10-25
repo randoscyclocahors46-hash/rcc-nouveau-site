@@ -101,7 +101,30 @@
   <button onclick="document.getElementById('page-bureau').style.display='block'; document.getElementById('page-assemblee').style.display='none'; document.getElementById('page-conseil').style.display='none'; document.getElementById('page-voeux').style.display='none';" style="background:#2e6b3f; color:white; padding:14px 20px; border:0; border-radius:8px; cursor:pointer;">Le bureau</button>
 
 </div>
-    
+
+   
+<!-- Nouvelle page Accueil du RCC -->
+<section id="nouvelle-page-accueil" style="display:none; max-width:1000px; margin:40px auto; padding:30px; text-align:center; background:#ffffff; border-radius:15px;">
+
+  <h1>Randos-cyclo-Cahors</h1>
+  <h2>Bienvenue dans l’espace du club</h2>
+  <p>Retrouvons-nous pour marcher, pédaler et partager de bons moments.</p>
+
+  <div style="display:flex; flex-wrap:wrap; justify-content:center; gap:15px; margin-top:30px;">
+    <button onclick="afficherRubriqueRCC('page-assemblee')" style="background:#2e6b3f; color:white; padding:15px 20px; border:0; border-radius:8px; cursor:pointer;">Assemblée générale</button>
+
+    <button onclick="afficherRubriqueRCC('page-conseil')" style="background:#2e6b3f; color:white; padding:15px 20px; border:0; border-radius:8px; cursor:pointer;">Conseil d’administration</button>
+
+    <button onclick="afficherRubriqueRCC('page-voeux')" style="background:#2e6b3f; color:white; padding:15px 20px; border:0; border-radius:8px; cursor:pointer;">Les vœux du Président</button>
+
+    <button onclick="afficherRubriqueRCC('page-bureau')" style="background:#2e6b3f; color:white; padding:15px 20px; border:0; border-radius:8px; cursor:pointer;">Le bureau</button>
+  </div>
+
+  <p style="margin-top:30px;">
+    <a href="#" onclick="location.hash=''; return false;">Retour au portail du RCC</a>
+  </p>
+
+</section>  
 <div id="page-assemblee" style="display:none; max-width:900px; margin:25px auto; padding:25px; background:#f4f8f3; border-radius:12px;">
   <h2>Assemblée générale</h2>
   <p>Retrouvez ici les informations et les comptes rendus de l’Assemblée générale du RCC.</p>
