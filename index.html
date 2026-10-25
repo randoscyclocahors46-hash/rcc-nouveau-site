@@ -546,13 +546,16 @@ document.addEventListener('DOMContentLoaded', function () {
       setTimeout(function () {
         marcheur.style.transition = '';
         
-        window.location.hash = porte.getAttribute('href');
+      
+const rubriques = document.getElementById('rubriques-accueil');
 
 if (porte.getAttribute('href') === '#accueil') {
-  document.getElementById('rubriques-accueil').style.display = 'flex';
+  rubriques.style.display = 'flex';
 } else {
-  document.getElementById('rubriques-accueil').style.display = 'none';
+  rubriques.style.display = 'none';
 }
+
+window.location.hash = porte.getAttribute('href');
       }, 3000);
     });
   });
