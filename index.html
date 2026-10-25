@@ -544,13 +544,11 @@ document.addEventListener('DOMContentLoaded', function () {
 
         const rubriques = document.getElementById('rubriques-accueil');
 
-        if (rubriques) {
-          if (porte.getAttribute('href') === '#accueil') {
-            rubriques.style.display = 'flex';
-          } else {
-            rubriques.style.display = 'none';
-          }
-        }
+       if (rubriques && porte.getAttribute('href') === '#accueil') {
+  rubriques.style.display = 'flex';
+  rubriques.style.visibility = 'visible';
+  rubriques.style.opacity = '1';
+}
 
         window.location.hash = porte.getAttribute('href');
       }, 3000);
