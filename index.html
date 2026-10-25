@@ -586,12 +586,16 @@ document.addEventListener('DOMContentLoaded', function () {
       setTimeout(function () {
         marcheur.style.transition = '';
 
-       if (porte.getAttribute('href') === '#accueil') {
-  document.getElementById('nouvelle-page-accueil').style.display = 'block';
-  document.getElementById('titre-accueil').style.display = 'none';
-  document.getElementById('presentation-accueil').style.display = 'none';
-  document.getElementById('rubriques-accueil').style.display = 'none';
-  portail.style.display = 'none';
+      const destination = porte.getAttribute('href');
+const section = document.querySelector(destination);
+
+if (section) {
+  document.querySelectorAll('body > section[id]').forEach(function (s) {
+    s.hidden = true;
+  });
+
+  section.hidden = false;
+  section.scrollIntoView({ behavior: 'smooth', block: 'start' });
 }
 
         window.location.hash = porte.getAttribute('href');
