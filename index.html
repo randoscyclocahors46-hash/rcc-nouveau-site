@@ -484,6 +484,7 @@ fetch('/content/apparence/accueil.json')
 
 
 
+
 <script>
 document.addEventListener('DOMContentLoaded', function () {
   const marcheur = document.getElementById('randonneur-anime');
@@ -538,22 +539,20 @@ document.addEventListener('DOMContentLoaded', function () {
       marcheur.style.left = arriveeX + 'px';
       marcheur.style.top = arriveeY + 'px';
 
-      marcheur.ontransitionend = null;
-
       setTimeout(function () {
         marcheur.style.transition = '';
-        
-      
-const rubriques = document.getElementById('rubriques-accueil');
-console.log("Test RCC : rubriques trouvées", rubriques);
-        
-if (porte.getAttribute('href') === '#accueil') {
-  rubriques.style.display = 'flex';
-  rubriques.style.visibility = 'visible';
-  rubriques.style.opacity = '1';
-}
 
-window.location.hash = porte.getAttribute('href');
+        const rubriques = document.getElementById('rubriques-accueil');
+
+        if (rubriques) {
+          if (porte.getAttribute('href') === '#accueil') {
+            rubriques.style.display = 'flex';
+          } else {
+            rubriques.style.display = 'none';
+          }
+        }
+
+        window.location.hash = porte.getAttribute('href');
       }, 3000);
     });
   });
