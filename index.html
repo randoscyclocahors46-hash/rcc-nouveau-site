@@ -565,12 +565,12 @@ document.addEventListener('DOMContentLoaded', function () {
       setTimeout(function () {
         marcheur.style.transition = '';
 
-        const rubriques = document.getElementById('rubriques-accueil');
-
-       if (rubriques && porte.getAttribute('href') === '#accueil') {
-  rubriques.style.display = 'flex';
-  rubriques.style.visibility = 'visible';
-  rubriques.style.opacity = '1';
+       if (porte.getAttribute('href') === '#accueil') {
+  document.getElementById('nouvelle-page-accueil').style.display = 'block';
+  document.getElementById('titre-accueil').style.display = 'none';
+  document.getElementById('presentation-accueil').style.display = 'none';
+  document.getElementById('rubriques-accueil').style.display = 'none';
+  portail.style.display = 'none';
 }
 
         window.location.hash = porte.getAttribute('href');
