@@ -594,6 +594,7 @@ portes.forEach(function (porte) {
 
     
 const destination = porte.getAttribute('href');
+        console.log('DESTINATION AU CLIC =', destination);
 const section = document.getElementById(destination.substring(1));
 
 if (section) {
