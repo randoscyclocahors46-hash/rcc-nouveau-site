@@ -588,6 +588,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
       const destination = porte.getAttribute('href');
 const section = document.querySelector(destination);
+        console.log('Porte cliquée :', destination, 'Section trouvée :', section);
 
 if (section) {
   document.querySelectorAll('section[id]').forEach(function (s) {
