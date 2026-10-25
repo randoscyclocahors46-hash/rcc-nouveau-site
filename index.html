@@ -154,8 +154,12 @@
   >
 
 
-  <a href="#accueil" aria-label="Accueil"
-     style="position:absolute; left:0%; top:25%; width:14%; height:60%;"></a>
+<a href="#accueil" aria-label="Accueil"
+   onclick="setTimeout(function() {
+     document.getElementById('rubriques-accueil').style.display = 'flex';
+   }, 3100);"
+   style="position:absolute; left:0%; top:25%; width:14%; height:60%;"></a>
+
 
   <a href="#randonnees" aria-label="Randonnées"
      style="position:absolute; left:16%; top:25%; width:14%; height:60%;"></a>
