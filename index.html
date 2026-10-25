@@ -548,13 +548,15 @@ portes.forEach(function (porte) {
       const departY = cadre.height - hauteur;
 
       const arriveeX = Math.max(
-        0,
-        Math.min(
-          cadre.width - largeur,
-          porteCadre.left + porteCadre.width / 2
-            - cadre.left - largeur / 2 - 30
-        )
-      );
+  0,
+  Math.min(
+    cadre.width - largeur,
+    porteCadre.left + porteCadre.width / 2
+      - cadre.left - largeur / 2 - 30
+  )
+);
+
+const destination = porte.getAttribute('href');
 
       const arriveeY = Math.max(
         0,
@@ -584,7 +586,6 @@ portes.forEach(function (porte) {
         marcheur.style.transition = '';
 
     
-const destination = porte.getAttribute('href');
         console.log('DESTINATION AU CLIC =', destination);
 const section = document.getElementById(destination.substring(1));
 
