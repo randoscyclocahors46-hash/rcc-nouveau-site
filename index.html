@@ -592,14 +592,15 @@ const section = document.getElementById(destination.substring(1));
 
 if (section) {
   document.querySelectorAll('section[id]').forEach(function (s) {
-    s.style.display = 'none';
+    s.hidden = true;
+    s.style.display = '';
   });
 
   section.hidden = false;
   section.style.display = 'block';
   section.scrollIntoView({ behavior: 'smooth', block: 'start' });
 } else {
-  alert('La section ' + destination + ' est introuvable.');
+  alert('Cette porte n’a pas encore de rubrique : ' + destination);
 }
 
 
