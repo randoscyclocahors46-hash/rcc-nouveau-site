@@ -89,6 +89,38 @@
   <p>Retrouvons-nous pour marcher, pédaler, découvrir de beaux paysages et partager de bons moments dans la convivialité.</p>
   <p><strong>RCC · Marchons, pédalons et partageons !</strong></p>
 </div>
+
+<!-- Date du jour et compteur de visites RCC -->
+<div style="text-align:center; margin:20px auto; padding:12px;">
+  <p id="date-rcc" style="font-size:18px; font-weight:bold; color:#245b36;"></p>
+  <div style="margin-top:10px;">
+    <span style="font-weight:bold;">Visites du site :</span>
+    <script src="https://www.stats4u.net/s4u.js" data-id="8541096630" data-style="2007" async></script>
+  </div>
+</div>
+
+<script>
+  const dateRCC = document.getElementById("date-rcc");
+  dateRCC.textContent = "Nous sommes le " +
+    new Date().toLocaleDateString("fr-FR", {
+      weekday: "long",
+      day: "numeric",
+      month: "long",
+      year: "numeric"
+    });
+</script>
+
+<script>
+  const dateRCC = document.getElementById("date-rcc");
+  dateRCC.textContent = "Nous sommes le " +
+    new Date().toLocaleDateString("fr-FR", {
+      weekday: "long",
+      day: "numeric",
+      month: "long",
+      year: "numeric"
+    });
+</script>
+
     
 <div id="rubriques-accueil" style="max-width:900px; margin:25px auto; display:none; flex-wrap:wrap; justify-content:center; gap:12px;">
 
