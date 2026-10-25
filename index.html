@@ -482,6 +482,7 @@ fetch('/content/apparence/accueil.json')
 
 
 
+
 <script>
 document.addEventListener('DOMContentLoaded', function () {
   const marcheur = document.getElementById('randonneur-anime');
@@ -508,7 +509,7 @@ document.addEventListener('DOMContentLoaded', function () {
         Math.min(
           cadre.width - largeur,
           porteCadre.left + porteCadre.width / 2
- - cadre.left - largeur / 2 - 30
+            - cadre.left - largeur / 2 - 30
         )
       );
 
@@ -536,20 +537,16 @@ document.addEventListener('DOMContentLoaded', function () {
       marcheur.style.left = arriveeX + 'px';
       marcheur.style.top = arriveeY + 'px';
 
-     
-marcheur.ontransitionend = null;
+      marcheur.ontransitionend = null;
 
-setTimeout(function () {
-  marcheur.style.transition = '';
-  window.location.hash = porte.getAttribute('href');
-}, 3000);
-
-      };
+      setTimeout(function () {
+        marcheur.style.transition = '';
+        window.location.hash = porte.getAttribute('href');
+      }, 3000);
     });
   });
 });
 </script>
-
 
 </body>
 </html>
