@@ -586,18 +586,21 @@ document.addEventListener('DOMContentLoaded', function () {
       setTimeout(function () {
         marcheur.style.transition = '';
 
-      const destination = porte.getAttribute('href');
+     const destination = porte.getAttribute('href');
 const section = document.querySelector(destination);
-        console.log('Porte cliquée :', destination, 'Section trouvée :', section);
 
 if (section) {
   document.querySelectorAll('section[id]').forEach(function (s) {
-    s.hidden = true;
+    s.style.display = 'none';
   });
 
   section.hidden = false;
+  section.style.display = 'block';
   section.scrollIntoView({ behavior: 'smooth', block: 'start' });
+} else {
+  alert('La section ' + destination + ' est introuvable.');
 }
+
 
         window.location.hash = porte.getAttribute('href');
       }, 3000);
