@@ -536,10 +536,16 @@ document.addEventListener('DOMContentLoaded', function () {
 
   if (!marcheur || !portail) return;
 
-  const portes = portail.querySelectorAll('a[href^="#"]');
+ const portes = portail.querySelectorAll('a[href^="#"]');
 
-  portes.forEach(function (porte) {
-    porte.addEventListener('click', function (event) {
+console.log('Nombre de portes :', portes.length);
+
+portes.forEach(function (p, i) {
+  console.log('Porte', i + 1, p.getAttribute('href'));
+});
+
+portes.forEach(function (porte) {
+  porte.addEventListener('click', function (event) {
       event.preventDefault();
 
       const cadre = portail.getBoundingClientRect();
