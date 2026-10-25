@@ -541,7 +541,14 @@ document.addEventListener('DOMContentLoaded', function () {
 
       setTimeout(function () {
         marcheur.style.transition = '';
+        
         window.location.hash = porte.getAttribute('href');
+
+if (porte.getAttribute('href') === '#accueil') {
+  document.getElementById('rubriques-accueil').style.display = 'flex';
+} else {
+  document.getElementById('rubriques-accueil').style.display = 'none';
+}
       }, 3000);
     });
   });
