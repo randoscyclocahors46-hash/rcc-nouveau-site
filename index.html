@@ -559,19 +559,7 @@ if (porte.getAttribute('href') === '#accueil') {
 });
 </script>
 
-<script>
-document.querySelectorAll('.hero a[href^="#"]').forEach(function(porte) {
-  porte.addEventListener('click', function() {
-    setTimeout(function() {
-      const rubriques = document.getElementById('rubriques-accueil');
-      if (rubriques) {
-        rubriques.style.display =
-          porte.getAttribute('href') === '#accueil' ? 'flex' : 'none';
-      }
-    }, 3100);
-  });
-});
-</script>
+
 
 </body>
 </html>
