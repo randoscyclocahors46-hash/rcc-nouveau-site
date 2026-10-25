@@ -531,11 +531,14 @@ document.addEventListener('DOMContentLoaded', function () {
       marcheur.style.left = arriveeX + 'px';
       marcheur.style.top = arriveeY + 'px';
 
-      marcheur.ontransitionend = function (e) {
-        if (e.propertyName !== 'top') return;
-        marcheur.ontransitionend = null;
-        marcheur.style.transition = '';
-        window.location.hash = porte.getAttribute('href');
+     
+marcheur.ontransitionend = null;
+
+setTimeout(function () {
+  marcheur.style.transition = '';
+  window.location.hash = porte.getAttribute('href');
+}, 3000);
+
       };
     });
   });
