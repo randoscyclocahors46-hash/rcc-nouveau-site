@@ -597,7 +597,8 @@ const destination = porte.getAttribute('href');
         marcheur.style.transition = '';
 
     
-        console.log('DESTINATION AU CLIC =', destination);
+       console.log('PORTE CLIQUÉE =', porte.getAttribute('aria-label'));
+console.log('DESTINATION AU CLIC =', destination);
 const section = document.getElementById(destination.substring(1));
 
 if (section) {
