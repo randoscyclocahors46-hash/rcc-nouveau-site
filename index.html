@@ -94,6 +94,7 @@
 </div>
 
 
+
 <div style="display:flex; align-items:center; justify-content:center; gap:20px; flex-wrap:wrap; margin:15px auto;">
   <div style="flex:0 0 180px; text-align:left; font-size:12px; color:#245b36; padding:8px;">
     <p id="date-rcc" style="font-size:12px; font-weight:bold; margin:4px 0;"></p>
@@ -102,10 +103,29 @@
       <script src="https://www.stats4u.net/s4u.js" data-id="8541096630" data-style="2007" async></script>
     </div>
   </div>
-  <img src="/media/Randonn%C3%A9e%20et%20v%C3%A9lo%20surplombant%20Cahors.png"
-       alt="Randonneurs et cyclistes autour de Cahors"
-       style="width:100%; max-width:550px; height:auto; border-radius:14px;">
+
+  <div style="position:relative; width:100%; max-width:550px; overflow:hidden; border-radius:14px;">
+    <img
+      src="/media/Randonn%C3%A9e%20et%20v%C3%A9lo%20surplombant%20Cahors.png"
+      alt="Randonneurs et cyclistes autour de Cahors"
+      style="display:block; width:100%; height:auto;"
+    >
+
+    <img
+      src="/media/Randonneur%20senior%20en%20marche.png"
+      alt="Petit marcheur RCC"
+      style="position:absolute; width:9%; height:auto; left:0; bottom:8%; animation:marcheurRCC 12s linear infinite;"
+    >
+  </div>
 </div>
+
+<style>
+@keyframes marcheurRCC {
+  from { left: -10%; }
+  to { left: 100%; }
+}
+</style>
+
 <script>
   const dateRCC = document.getElementById("date-rcc");
   dateRCC.textContent = "Nous sommes le " +
@@ -116,6 +136,7 @@
       year: "numeric"
     });
 </script>
+
 
 
 
