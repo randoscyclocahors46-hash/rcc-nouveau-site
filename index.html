@@ -93,15 +93,15 @@
   <p><strong>RCC · Marchons, pédalons et partageons !</strong></p>
 </div>
 
-<!-- Date et compteur de visites RCC -->
-<div style="display:inline-block; text-align:left; margin:10px; padding:8px; font-size:12px; color:#245b36;">
-  <p id="date-rcc" style="font-size:12px; font-weight:bold; margin:4px 0;"></p>
-  <div style="margin-top:5px;">
-    <span style="font-weight:bold;">Visites du site :</span>
-    <script src="https://www.stats4u.net/s4u.js" data-id="8541096630" data-style="2007" async></script>
+<div style="display:flex; align-items:center; justify-content:center; gap:20px; flex-wrap:wrap; margin:15px auto;">
+  <div style="text-align:left; font-size:12px; color:#245b36; padding:8px;">
+    <p id="date-rcc" style="font-size:12px; font-weight:bold; margin:4px 0;"></p>
+    <div style="margin-top:5px;">
+      <span style="font-weight:bold;">Visites du site :</span>
+      <script src="https://www.stats4u.net/s4u.js" data-id="8541096630" data-style="2007" async></script>
+    </div>
   </div>
 </div>
-
 <script>
   const dateRCC = document.getElementById("date-rcc");
   dateRCC.textContent = "Nous sommes le " +
