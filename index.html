@@ -732,7 +732,7 @@ function ouvrirLienDirect() {
         d.open = false;
       });
 
-      rubrique.open = true;
+      rubrique.setAttribute('open', '');
 
       setTimeout(function() {
         rubrique.scrollIntoView({ behavior: 'smooth', block: 'start' });
