@@ -94,6 +94,9 @@ content:
       - name: telephone
         label: Téléphone
         type: string
+      - name: photo
+        label: Photo du membre
+        type: image
   - name: photos
     label: Albums photos RCC
     type: collection
