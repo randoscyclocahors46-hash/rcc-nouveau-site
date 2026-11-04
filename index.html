@@ -483,8 +483,11 @@ fetch('./content/pages/accueil.json')
     return reponse.json();
   })
   .then(page => {
-    document.getElementById('titre-accueil').textContent = page.titre;
-    document.getElementById('texte-accueil').textContent = page.texte;
+   const titre = document.getElementById('titre-accueil');
+const texte = document.getElementById('texte-accueil');
+
+if (titre) titre.textContent = page.titre;
+if (texte) texte.textContent = page.texte;
   })
   .catch(erreur => {
     console.log('Le contenu de la page reste celui par défaut.', erreur);
