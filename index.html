@@ -286,6 +286,7 @@
  <details id="conseil-administration" style="padding:15px; border-bottom:1px solid #ddd;">
     <summary>🤝 Conseil d'administration</summary>
    <p>Retrouvez ici les informations concernant le conseil d'administration du RCC.</p>
+   <div id="documents-conseil">Chargement des documents...</div>
 </details>
 
   <details style="padding:15px; border-bottom:1px solid #ddd;">
@@ -574,6 +575,45 @@ fetch('https://api.github.com/repos/randoscyclocahors46-hash/rcc-nouveau-site/co
   })
   .catch(erreur => {
     const liste = document.getElementById('documents-ag2026');
+    if (liste) liste.textContent = 'Les documents ne peuvent pas être chargés pour le moment.';
+    console.log(erreur);
+  });
+  fetch('https://api.github.com/repos/randoscyclocahors46-hash/rcc-nouveau-site/contents/content/conseil')
+  .then(reponse => {
+    if (!reponse.ok) throw new Error('Impossible de charger les documents');
+    return reponse.json();
+  })
+  .then(fichiers => {
+    const liste = document.getElementById('documents-conseil');
+    if (!liste) return;
+    liste.textContent = '';
+
+    const documents = fichiers.filter(fichier =>
+      fichier.name.endsWith('.json')
+    );
+
+    if (documents.length === 0) {
+      liste.textContent = 'Aucun document disponible pour le moment.';
+      return;
+    }
+
+    return Promise.all(documents.map(fichier =>
+      fetch(fichier.download_url).then(reponse => reponse.json())
+    )).then(resultats => {
+      resultats.forEach(documentConseil => {
+        if (!documentConseil.fichier) return;
+        const lien = document.createElement('a');
+        lien.textContent = '📄 ' + documentConseil.titre;
+        lien.href = documentConseil.fichier;
+        lien.target = '_blank';
+        lien.style.display = 'block';
+        lien.style.margin = '12px 0';
+        liste.appendChild(lien);
+      });
+    });
+  })
+  .catch(erreur => {
+    const liste = document.getElementById('documents-conseil');
     if (liste) liste.textContent = 'Les documents ne peuvent pas être chargés pour le moment.';
     console.log(erreur);
   });
