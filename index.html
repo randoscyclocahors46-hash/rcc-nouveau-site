@@ -856,6 +856,61 @@ window.addEventListener('load', function() {
   setTimeout(ouvrirLienDirect, 500);
 });
 </script>
+  <footer id="contacts-rcc" style="text-align:center; padding:25px; margin-top:40px; background:#e8f0e8; color:#245b36;">
+  <h2>📞 Nous contacter</h2>
+  <div id="coordonnees-rcc">Chargement des coordonnées...</div>
+</footer>
+  <script>
+fetch('https://api.github.com/repos/randoscyclocahors46-hash/rcc-nouveau-site/contents/content/contacts/coordonnees.json')
+  .then(reponse => {
+    if (!reponse.ok) throw new Error('Coordonnées introuvables');
+    return reponse.json();
+  })
+  .then(fichier => fetch(fichier.download_url))
+  .then(reponse => reponse.json())
+  .then(contact => {
+    const zone = document.getElementById('coordonnees-rcc');
+    if (!zone) return;
+    zone.textContent = '';
+
+    if (contact.president) {
+      const president = document.createElement('p');
+      president.textContent = 'Président : ' + contact.president;
+      zone.appendChild(president);
+    }
+
+    if (contact.telephone) {
+      const tel = document.createElement('p');
+      const lienTel = document.createElement('a');
+      lienTel.href = 'tel:' + contact.telephone.replace(/\s/g, '');
+      lienTel.textContent = contact.telephone;
+      zone.appendChild(document.createTextNode('Téléphone : '));
+      tel.appendChild(lienTel);
+      zone.appendChild(tel);
+    }
+
+    if (contact.email) {
+      const email = document.createElement('p');
+      const lienEmail = document.createElement('a');
+      lienEmail.href = 'mailto:' + contact.email;
+      lienEmail.textContent = contact.email;
+      email.appendChild(document.createTextNode('E-mail : '));
+      email.appendChild(lienEmail);
+      zone.appendChild(email);
+    }
+
+    if (contact.adresse) {
+      const adresse = document.createElement('p');
+      adresse.textContent = contact.adresse;
+      zone.appendChild(adresse);
+    }
+  })
+  .catch(erreur => {
+    document.getElementById('coordonnees-rcc').textContent =
+      'Les coordonnées ne sont pas disponibles pour le moment.';
+    console.log(erreur);
+  });
+</script>
 </body>
 </html>
 
