@@ -737,7 +737,9 @@ function ouvrirLienDirect() {
   }
 }
 
-window.addEventListener('load', ouvrirLienDirect);
+window.addEventListener('load', function() {
+  setTimeout(ouvrirLienDirect, 500);
+});
 </script>
 </body>
 </html>
