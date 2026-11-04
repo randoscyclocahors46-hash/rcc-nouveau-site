@@ -57,6 +57,22 @@ content:
       - name: fichier
         label: Document PDF ou Word
         type: file
+  - name: conseil
+    label: Conseil d'administration
+    type: collection
+    path: content/conseil
+    format: json
+    filename: "{primary}.json"
+    view:
+      primary: titre
+    fields:
+      - name: titre
+        label: Titre du document
+        type: string
+        required: true
+      - name: fichier
+        label: Document PDF ou Word
+        type: file 
   - name: photos
     label: Albums photos RCC
     type: collection
