@@ -91,6 +91,9 @@ content:
         label: Fonction au sein du club
         type: string
         required: true
+      - name: telephone
+        label: Téléphone
+        type: string
   - name: photos
     label: Albums photos RCC
     type: collection
