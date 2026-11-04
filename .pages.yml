@@ -73,6 +73,24 @@ content:
       - name: fichier
         label: Document PDF ou Word
         type: file 
+
+  - name: bureau
+    label: Le Bureau
+    type: collection
+    path: content/bureau
+    format: json
+    filename: "{primary}.json"
+    view:
+      primary: nom
+    fields:
+      - name: nom
+        label: Nom et prénom
+        type: string
+        required: true
+      - name: fonction
+        label: Fonction au sein du club
+        type: string
+        required: true
   - name: photos
     label: Albums photos RCC
     type: collection
