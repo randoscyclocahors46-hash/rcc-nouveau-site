@@ -146,3 +146,23 @@ content:
       - name: image_accueil
         label: Image d'accueil
         type: image
+  - name: contacts
+    label: Coordonnées du club
+    type: file
+    path: content/contacts/coordonnees.json
+    format: json
+    fields:
+      - name: president
+        label: Nom du président
+        type: string
+      - name: telephone
+        label: Téléphone du club
+        type: string
+      - name: email
+        label: Adresse e-mail
+        type: string
+      - name: adresse
+        label: Adresse postale du club
+        type: string
+
+        
