@@ -717,7 +717,31 @@ if (section) {
 </script>
 
 
+<script>
+function ouvrirLienDirect() {
+  if (window.location.hash === '#ag2026') {
+    const accueil = document.getElementById('accueil');
+    const ag = document.getElementById('ag2026');
 
+    if (accueil && ag) {
+      document.querySelectorAll('section[id]').forEach(function(s) {
+        s.hidden = true;
+        s.style.display = '';
+      });
+
+      accueil.hidden = false;
+      accueil.style.display = 'block';
+      ag.open = true;
+
+      setTimeout(function() {
+        ag.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      }, 300);
+    }
+  }
+}
+
+window.addEventListener('load', ouvrirLienDirect);
+</script>
 </body>
 </html>
 
