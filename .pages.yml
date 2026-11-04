@@ -39,7 +39,24 @@ content:
       - name: fichier
         label: Document PDF
         type: file
-    
+
+
+  - name: ag2026
+    label: Assemblée générale 2026
+    type: collection
+    path: content/ag2026
+    format: json
+    filename: "{primary}.json"
+    view:
+      primary: titre
+    fields:
+      - name: titre
+        label: Titre du document
+        type: string
+        required: true
+      - name: fichier
+        label: Document PDF ou Word
+        type: file
   - name: photos
     label: Albums photos RCC
     type: collection
