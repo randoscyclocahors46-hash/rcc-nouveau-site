@@ -545,6 +545,45 @@ fetch('https://api.github.com/repos/randoscyclocahors46-hash/rcc-nouveau-site/co
     }
     console.log(erreur);
   });
+fetch('https://api.github.com/repos/randoscyclocahors46-hash/rcc-nouveau-site/contents/content/ag2026')
+  .then(reponse => {
+    if (!reponse.ok) throw new Error('Impossible de charger les documents');
+    return reponse.json();
+  })
+  .then(fichiers => {
+    const liste = document.getElementById('documents-ag2026');
+    if (!liste) return;
+    liste.textContent = '';
+
+    const documents = fichiers.filter(fichier =>
+      fichier.name.endsWith('.json')
+    );
+
+    if (documents.length === 0) {
+      liste.textContent = 'Aucun document disponible pour le moment.';
+      return;
+    }
+
+    return Promise.all(documents.map(fichier =>
+      fetch(fichier.download_url).then(reponse => reponse.json())
+    )).then(resultats => {
+      resultats.forEach(documentAg => {
+        if (!documentAg.fichier) return;
+        const lien = document.createElement('a');
+        lien.textContent = '📄 ' + documentAg.titre;
+        lien.href = documentAg.fichier;
+        lien.target = '_blank';
+        lien.style.display = 'block';
+        lien.style.margin = '12px 0';
+        liste.appendChild(lien);
+      });
+    });
+  })
+  .catch(erreur => {
+    const liste = document.getElementById('documents-ag2026');
+    if (liste) liste.textContent = 'Les documents ne peuvent pas être chargés pour le moment.';
+    console.log(erreur);
+  });
 </script>
 
 <script>
