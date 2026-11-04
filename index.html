@@ -718,6 +718,7 @@ function ouvrirLienDirect() {
   if (hash === '#ag2026' || hash === '#conseil-administration') {
     const accueil = document.getElementById('accueil');
     const rubrique = document.getElementById(hash.substring(1));
+    console.log("Rubrique trouvée :", rubrique);
 
     if (accueil && rubrique) {
       document.querySelectorAll('section[id]').forEach(function(s) {
