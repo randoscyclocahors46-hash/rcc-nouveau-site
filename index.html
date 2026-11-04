@@ -710,6 +710,7 @@ if (section) {
 <script>
 function ouvrirLienDirect() {
   const hash = window.location.hash;
+  console.log("Lien reçu :", hash);
 
   if (hash === '#ag2026' || hash === '#conseil-administration') {
     const accueil = document.getElementById('accueil');
