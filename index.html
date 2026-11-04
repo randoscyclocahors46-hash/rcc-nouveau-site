@@ -734,6 +734,7 @@ function ouvrirLienDirect() {
       });
 
       rubrique.setAttribute('open', '');
+      console.log("Rubrique ouverte :", rubrique.open);
 
       setTimeout(function() {
         rubrique.scrollIntoView({ behavior: 'smooth', block: 'start' });
