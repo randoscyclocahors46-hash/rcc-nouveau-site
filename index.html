@@ -283,7 +283,7 @@
 <div id="documents-ag2026">Chargement des documents...</div>
   </details>
 
- <details style="padding:15px; border-bottom:1px solid #ddd;">
+ <details id="conseil-administration" style="padding:15px; border-bottom:1px solid #ddd;">
     <summary>🤝 Conseil d'administration</summary>
    <p>Retrouvez ici les informations concernant le conseil d'administration du RCC.</p>
 </details>
@@ -709,11 +709,13 @@ if (section) {
 
 <script>
 function ouvrirLienDirect() {
-  if (window.location.hash === '#ag2026') {
-    const accueil = document.getElementById('accueil');
-    const ag = document.getElementById('ag2026');
+  const hash = window.location.hash;
 
-    if (accueil && ag) {
+  if (hash === '#ag2026' || hash === '#conseil-administration') {
+    const accueil = document.getElementById('accueil');
+    const rubrique = document.getElementById(hash.substring(1));
+
+    if (accueil && rubrique) {
       document.querySelectorAll('section[id]').forEach(function(s) {
         s.hidden = true;
         s.style.display = '';
@@ -721,10 +723,15 @@ function ouvrirLienDirect() {
 
       accueil.hidden = false;
       accueil.style.display = 'block';
-      ag.open = true;
+
+      accueil.querySelectorAll('details').forEach(function(d) {
+        d.open = false;
+      });
+
+      rubrique.open = true;
 
       setTimeout(function() {
-        ag.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        rubrique.scrollIntoView({ behavior: 'smooth', block: 'start' });
       }, 300);
     }
   }
