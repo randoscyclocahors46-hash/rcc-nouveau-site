@@ -292,6 +292,7 @@
   <details style="padding:15px; border-bottom:1px solid #ddd;">
     <summary>👥 Le Bureau</summary>
     <p>Découvrez les membres du bureau du club.</p>
+    <div id="liste-bureau">Chargement des membres...</div>
   </details>
 
   <details style="padding:15px; border-bottom:1px solid #ddd;">
@@ -615,6 +616,74 @@ fetch('https://api.github.com/repos/randoscyclocahors46-hash/rcc-nouveau-site/co
   .catch(erreur => {
     const liste = document.getElementById('documents-conseil');
     if (liste) liste.textContent = 'Les documents ne peuvent pas être chargés pour le moment.';
+    console.log(erreur);
+  });
+  fetch('https://api.github.com/repos/randoscyclocahors46-hash/rcc-nouveau-site/contents/content/bureau')
+  .then(reponse => {
+    if (!reponse.ok) throw new Error('Impossible de charger le Bureau');
+    return reponse.json();
+  })
+  .then(fichiers => {
+    const liste = document.getElementById('liste-bureau');
+    if (!liste) return;
+    liste.textContent = '';
+
+    const fiches = fichiers.filter(fichier =>
+      fichier.name.endsWith('.json')
+    );
+
+    if (fiches.length === 0) {
+      liste.textContent = 'Aucun membre enregistré pour le moment.';
+      return;
+    }
+
+    return Promise.all(fiches.map(fichier =>
+      fetch(fichier.download_url).then(reponse => reponse.json())
+    )).then(membres => {
+      membres.forEach(membre => {
+        const carte = document.createElement('div');
+        carte.style.display = 'flex';
+        carte.style.alignItems = 'center';
+        carte.style.gap = '20px';
+        carte.style.margin = '20px 0';
+        carte.style.padding = '15px';
+        carte.style.borderBottom = '1px solid #ddd';
+
+        if (membre.photo) {
+          const photo = document.createElement('img');
+          photo.src = membre.photo;
+          photo.alt = membre.nom || 'Photo du membre';
+          photo.style.width = '120px';
+          photo.style.height = '120px';
+          photo.style.objectFit = 'cover';
+          photo.style.borderRadius = '10px';
+          carte.appendChild(photo);
+        }
+
+        const infos = document.createElement('div');
+
+        const nom = document.createElement('h3');
+        nom.textContent = membre.nom || '';
+        infos.appendChild(nom);
+
+        const fonction = document.createElement('p');
+        fonction.textContent = membre.fonction || '';
+        infos.appendChild(fonction);
+
+        if (membre.telephone) {
+          const telephone = document.createElement('p');
+          telephone.textContent = 'Téléphone : ' + membre.telephone;
+          infos.appendChild(telephone);
+        }
+
+        carte.appendChild(infos);
+        liste.appendChild(carte);
+      });
+    });
+  })
+  .catch(erreur => {
+    const liste = document.getElementById('liste-bureau');
+    if (liste) liste.textContent = 'Les membres ne peuvent pas être chargés pour le moment.';
     console.log(erreur);
   });
 </script>
