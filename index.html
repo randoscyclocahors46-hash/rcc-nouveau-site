@@ -861,55 +861,52 @@ window.addEventListener('load', function() {
   <div id="coordonnees-rcc">Chargement des coordonnées...</div>
 </footer>
   <script>
-fetch('https://api.github.com/repos/randoscyclocahors46-hash/rcc-nouveau-site/contents/content/contacts/coordonnees.json')
+fetch('https://raw.githubusercontent.com/randoscyclocahors46-hash/rcc-nouveau-site/main/content/contacts/coordonnees.json')
   .then(reponse => {
     if (!reponse.ok) throw new Error('Coordonnées introuvables');
     return reponse.json();
   })
-  .then(fichier => fetch(fichier.download_url))
-  .then(reponse => reponse.json())
   .then(contact => {
     const zone = document.getElementById('coordonnees-rcc');
     if (!zone) return;
     zone.textContent = '';
 
     if (contact.president) {
-      const president = document.createElement('p');
-      president.textContent = 'Président : ' + contact.president;
-      zone.appendChild(president);
+      const p = document.createElement('p');
+      p.textContent = 'Président : ' + contact.president;
+      zone.appendChild(p);
     }
 
     if (contact.telephone) {
-      const tel = document.createElement('p');
-      const lienTel = document.createElement('a');
-      lienTel.href = 'tel:' + contact.telephone.replace(/\s/g, '');
-      lienTel.textContent = contact.telephone;
-      zone.appendChild(document.createTextNode('Téléphone : '));
-      tel.appendChild(lienTel);
-      zone.appendChild(tel);
+      const p = document.createElement('p');
+      const lien = document.createElement('a');
+      lien.href = 'tel:' + contact.telephone.replace(/\s/g, '');
+      lien.textContent = contact.telephone;
+      p.append('Téléphone : ', lien);
+      zone.appendChild(p);
     }
 
     if (contact.email) {
-      const email = document.createElement('p');
-      const lienEmail = document.createElement('a');
-      lienEmail.href = 'mailto:' + contact.email;
-      lienEmail.textContent = contact.email;
-      email.appendChild(document.createTextNode('E-mail : '));
-      email.appendChild(lienEmail);
-      zone.appendChild(email);
+      const p = document.createElement('p');
+      const lien = document.createElement('a');
+      lien.href = 'mailto:' + contact.email;
+      lien.textContent = contact.email;
+      p.append('E-mail : ', lien);
+      zone.appendChild(p);
     }
 
     if (contact.adresse) {
-      const adresse = document.createElement('p');
-      adresse.textContent = contact.adresse;
-      zone.appendChild(adresse);
+      const p = document.createElement('p');
+      p.textContent = contact.adresse;
+      zone.appendChild(p);
     }
   })
   .catch(erreur => {
-    document.getElementById('coordonnees-rcc').textContent =
-      'Les coordonnées ne sont pas disponibles pour le moment.';
+    const zone = document.getElementById('coordonnees-rcc');
+    if (zone) zone.textContent = 'Les coordonnées ne sont pas disponibles pour le moment.';
     console.log(erreur);
   });
+    
 </script>
 </body>
 </html>
