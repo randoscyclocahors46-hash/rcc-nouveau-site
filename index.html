@@ -758,7 +758,7 @@ const destination = porte.getAttribute('href');
                  destination === '#randonnees' ? -0.10 : 0.50;
 
 const arriveeX = Math.max(
-  0,
+  -largeur * 0.5,
   Math.min(
     cadre.width - largeur,
     porteCadre.left + porteCadre.width * decalage
