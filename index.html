@@ -798,6 +798,7 @@ const arriveeX = Math.max(
        console.log('PORTE CLIQUÉE =', porte.getAttribute('aria-label'));
 console.log('DESTINATION AU CLIC =', destination);
 const section = document.getElementById(destination.substring(1));
+       console.log('Section trouvée :', section); 
 
 if (section) {
   document.querySelectorAll('section[id]').forEach(function (s) {
