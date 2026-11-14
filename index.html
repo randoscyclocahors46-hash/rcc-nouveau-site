@@ -757,6 +757,8 @@ const decalage = destination === '#accueil' ? 0.50 :
                  destination === '#cyclotourisme' ? 0.10 : 0.50;
 const arriveeX = destination === '#randonnees'
   ? porteCadre.left + porteCadre.width * 0.50 - cadre.left - largeur / 2 + 15
+  : destination === '#cyclotourisme'
+  ? porteCadre.left + porteCadre.width * 0.50 - cadre.left - largeur / 2 - 50
   : Math.max(
       -largeur * 2,
       Math.min(
