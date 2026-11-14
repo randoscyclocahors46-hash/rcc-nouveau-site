@@ -757,17 +757,16 @@ const destination = porte.getAttribute('href');
 const decalage = destination === '#accueil' ? 0.50 :
                  destination === '#randonnees' ? 0.25 : 0.50;
 
-const correctionX = destination === '#randonnees' ? -120 : 15;
-
-const arriveeX = Math.max(
-  -largeur * 2,
-  Math.min(
-    cadre.width - largeur,
-    porteCadre.left + porteCadre.width * decalage
-    - cadre.left - largeur / 2 + correctionX
-  )
-);
-
+const arriveeX = destination === '#randonnees'
+  ? cadre.width * 0.23
+  : Math.max(
+      -largeur * 2,
+      Math.min(
+        cadre.width - largeur,
+        porteCadre.left + porteCadre.width * decalage
+        - cadre.left - largeur / 2 + 15
+      )
+    );
       const arriveeY = Math.max(
         0,
         Math.min(
