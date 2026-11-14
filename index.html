@@ -753,18 +753,20 @@ portes.forEach(function (porte) {
       const departY = cadre.height - hauteur;
     
 const destination = porte.getAttribute('href');
-      const decalage = destination === '#accueil' ? 0.50 :
-                 destination === '#randonnees' ? -0.25 : 0.50;
+
+const decalage = destination === '#accueil' ? 0.50 :
+                 destination === '#randonnees' ? 0.25 : 0.50;
+
+const correctionX = destination === '#randonnees' ? -60 : 15;
 
 const arriveeX = Math.max(
   -largeur * 2,
   Math.min(
     cadre.width - largeur,
     porteCadre.left + porteCadre.width * decalage
-    - cadre.left - largeur / 2 -60
+    - cadre.left - largeur / 2 + correctionX
   )
 );
-
 
       const arriveeY = Math.max(
         0,
