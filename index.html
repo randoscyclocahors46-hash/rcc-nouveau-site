@@ -377,6 +377,16 @@ style="position:absolute; left:70%; top:25%; width:14%; height:60%;"></a>
     <h3>📋 Discussions publiées</h3>
     <div id="forum-sujets">Chargement des discussions...</div>
   </div>
+
+<div style="margin-top:35px; padding:15px; background:#f4f8f4; border-radius:10px; color:#000;">
+  <h3>🔐 Administration du forum</h3>
+  <p>Accès réservé au responsable du forum.</p>
+  <input type="password" id="forum-mot-de-passe" placeholder="Mot de passe administrateur">
+  <button type="button" id="forum-connexion">Se connecter</button>
+  <p id="forum-admin-retour"></p>
+  <div id="forum-admin-contenu" hidden></div>
+</div>
+
 </section>
 
 <script>
@@ -451,6 +461,97 @@ style="position:absolute; left:70%; top:25%; width:14%; height:60%;"></a>
     }
   });
 
+    let jetonAdmin = null;
+
+  document.getElementById("forum-connexion").addEventListener("click", async () => {
+    const motDePasse = document.getElementById("forum-mot-de-passe").value;
+    const retourAdmin = document.getElementById("forum-admin-retour");
+
+    retourAdmin.textContent = "Vérification en cours...";
+
+    try {
+      const reponse = await fetch(API + "/admin/attente", {
+        headers: {
+          "Authorization": "Bearer " + motDePasse
+        }
+      });
+
+      const resultat = await reponse.json();
+
+      if (!reponse.ok) {
+        retourAdmin.textContent = "Mot de passe incorrect.";
+        return;
+      }
+
+      jetonAdmin = motDePasse;
+      document.getElementById("forum-mot-de-passe").value = "";
+      retourAdmin.textContent = "Connexion réussie.";
+      afficherAttente(resultat);
+
+    } catch {
+      retourAdmin.textContent = "Erreur de connexion au serveur.";
+    }
+  });
+
+  function afficherAttente(donnees) {
+    const zone = document.getElementById("forum-admin-contenu");
+    zone.hidden = false;
+    zone.replaceChildren();
+
+    const titre = document.createElement("h3");
+    titre.textContent = "Messages en attente";
+    zone.append(titre);
+
+    ["sujets", "commentaires"].forEach(type => {
+      donnees[type].forEach(message => {
+        const bloc = document.createElement("div");
+        bloc.style.cssText = "background:white; padding:12px; margin:12px 0; border-radius:8px;";
+
+        const contenu = document.createElement("p");
+        contenu.textContent =
+          (message.titre ? message.titre + " — " : "") +
+          message.auteur + " : " + message.message;
+
+        bloc.append(contenu);
+
+        ["approuver", "refuser"].forEach(action => {
+          const bouton = document.createElement("button");
+          bouton.type = "button";
+          bouton.textContent = action === "approuver" ? "Approuver" : "Refuser";
+          bouton.style.marginRight = "8px";
+
+          bouton.addEventListener("click", async () => {
+            const reponse = await fetch(API + "/admin/moderation", {
+              method: "POST",
+              headers: {
+                "Content-Type": "application/json",
+                "Authorization": "Bearer " + jetonAdmin
+              },
+              body: JSON.stringify({ type, id: message.id, action })
+            });
+
+            if (reponse.ok) {
+              bloc.remove();
+              chargerSujets();
+            } else {
+              alert("La modération n'a pas pu être effectuée.");
+            }
+          });
+
+          bloc.append(bouton);
+        });
+
+        zone.append(bloc);
+      });
+    });
+
+    if (!zone.children.length || zone.children.length === 1) {
+      const vide = document.createElement("p");
+      vide.textContent = "Aucun message en attente.";
+      zone.append(vide);
+    }
+  }
+  
   chargerSujets();
 })();
 </script>
