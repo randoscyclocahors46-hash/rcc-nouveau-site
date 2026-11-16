@@ -356,16 +356,104 @@ style="position:absolute; left:70%; top:25%; width:14%; height:60%;"></a>
     <p><button id="fermer-album" type="button">Fermer l'album</button></p>
   </div>
 </section>
-  <section id="forum" hidden style="max-width:900px; margin:40px auto; padding:25px; background:#fff; border-radius:12px; scroll-margin-top:120px;">
+ 
+<section id="forum" hidden style="max-width:900px; margin:40px auto; padding:25px; background:#fff; border-radius:12px; scroll-margin-top:120px;">
   <h2>💬 Forum du RCC</h2>
   <p>Bienvenue sur le forum du Randos-cyclo-Cahors.</p>
-  <p>Un espace ouvert à tous pour échanger, poser des questions, proposer des idées et partager la vie du club.</p>
+  <p>Un espace ouvert à tous pour échanger, poser des questions et partager la vie du club.</p>
 
   <div style="margin-top:25px; padding:20px; background:#f4f8f4; border-radius:10px;">
-    <h3>💬 Espace de discussion</h3>
-    <p>Le forum sera bientôt disponible.</p>
+    <h3>✍️ Proposer un nouveau sujet</h3>
+    <form id="forum-form-sujet">
+      <p><label>Votre pseudonyme<br><input id="forum-auteur" maxlength="50" required></label></p>
+      <p><label>Titre du sujet<br><input id="forum-titre" maxlength="150" required style="width:100%;"></label></p>
+      <p><label>Votre message<br><textarea id="forum-message" maxlength="5000" required rows="5" style="width:100%;"></textarea></label></p>
+      <button type="submit">Envoyer pour validation</button>
+    </form>
+    <p id="forum-retour" aria-live="polite"></p>
+  </div>
+
+  <div style="margin-top:25px;">
+    <h3>📋 Discussions publiées</h3>
+    <div id="forum-sujets">Chargement des discussions...</div>
   </div>
 </section>
+
+<script>
+(() => {
+  const API = "https://rcc-forum-api.randoscyclocahors46.workers.dev";
+
+  const liste = document.getElementById("forum-sujets");
+  const formulaire = document.getElementById("forum-form-sujet");
+  const retour = document.getElementById("forum-retour");
+
+  if (!liste || !formulaire) return;
+
+  async function chargerSujets() {
+    liste.textContent = "Chargement des discussions...";
+    try {
+      const reponse = await fetch(API + "/sujets");
+      if (!reponse.ok) throw new Error();
+      const sujets = await reponse.json();
+
+      liste.replaceChildren();
+
+      if (!sujets.length) {
+        liste.textContent = "Aucune discussion publiée pour le moment.";
+        return;
+      }
+
+      sujets.forEach(sujet => {
+        const bloc = document.createElement("article");
+        bloc.style.cssText = "padding:15px; margin:12px 0; background:#f4f8f4; border-radius:10px;";
+
+        const titre = document.createElement("h4");
+        titre.textContent = sujet.titre;
+
+        const auteur = document.createElement("p");
+        auteur.textContent = "Proposé par " + sujet.auteur;
+
+        const message = document.createElement("p");
+        message.textContent = sujet.message;
+
+        bloc.append(titre, auteur, message);
+        liste.append(bloc);
+      });
+    } catch {
+      liste.textContent = "Impossible de charger les discussions. Réessayez plus tard.";
+    }
+  }
+
+  formulaire.addEventListener("submit", async evenement => {
+    evenement.preventDefault();
+    retour.textContent = "Envoi en cours...";
+
+    const donnees = {
+      auteur: document.getElementById("forum-auteur").value.trim(),
+      titre: document.getElementById("forum-titre").value.trim(),
+      message: document.getElementById("forum-message").value.trim()
+    };
+
+    try {
+      const reponse = await fetch(API + "/sujets", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(donnees)
+      });
+
+      const resultat = await reponse.json();
+      if (!reponse.ok) throw new Error(resultat.erreur || "Envoi impossible");
+
+      formulaire.reset();
+      retour.textContent = "Merci ! Votre sujet sera visible après validation par le club.";
+    } catch (erreur) {
+      retour.textContent = "Erreur : " + erreur.message;
+    }
+  });
+
+  chargerSujets();
+})();
+</script>
 
 <script>
 (function () {
