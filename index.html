@@ -815,6 +815,31 @@ if (planning.gpx) {
   gpx.style.cssText = "display:block; margin-top:12px;";
   colonne.appendChild(gpx);
 }
+    // Photos de la randonnée
+if (planning.photos && planning.photos.length > 0) {
+  const galerie = document.createElement("div");
+  galerie.style.cssText = "display:flex; flex-wrap:wrap; gap:10px; margin-top:15px;";
+
+  planning.photos.forEach(photo => {
+    const image = document.createElement("img");
+    image.src = photo;
+    image.style.cssText = "width:120px; height:90px; object-fit:cover; border-radius:8px;";
+    galerie.appendChild(image);
+  });
+
+  colonne.appendChild(galerie);
+}
+    // Documents PDF complémentaires
+if (planning.documents && planning.documents.length > 0) {
+  planning.documents.forEach(documentPDF => {
+    const lien = document.createElement("a");
+    lien.href = documentPDF;
+    lien.textContent = "📄 Télécharger un document complémentaire";
+    lien.target = "_blank";
+    lien.style.cssText = "display:block; margin-top:10px;";
+    colonne.appendChild(lien);
+  });
+}
     grille.appendChild(colonne);
   }
 });
