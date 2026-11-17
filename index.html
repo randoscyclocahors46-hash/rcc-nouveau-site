@@ -819,6 +819,57 @@ colonne.style.cssText = "min-width:0;";
     }
     console.log(erreur);
   });
+  fetch('https://api.github.com/repos/randoscyclocahors46-hash/rcc-nouveau-site/contents/content/animateurs')
+  .then(reponse => {
+    if (!reponse.ok) throw new Error('Impossible de charger les animateurs');
+    return reponse.json();
+  })
+  .then(fichiers => {
+    const liste = document.getElementById('liste-animateurs');
+    if (!liste) return;
+
+    const documents = fichiers.filter(fichier =>
+      fichier.name.endsWith('.json')
+    );
+
+    return Promise.all(documents.map(fichier =>
+      fetch(fichier.download_url).then(reponse => {
+        if (!reponse.ok) throw new Error('Fiche animateur inaccessible');
+        return reponse.json();
+      })
+    )).then(animateurs => {
+      liste.textContent = '';
+
+      if (!animateurs.length) {
+        liste.textContent = 'Aucun animateur indiqué pour le moment.';
+        return;
+      }
+
+      animateurs.forEach(animateur => {
+        const bloc = document.createElement('div');
+        bloc.style.cssText = 'margin:10px 0; padding:12px 16px; background:#f4f8f4; border-radius:8px;';
+
+        const nom = document.createElement('strong');
+        nom.textContent = '👤 ' + animateur.nom;
+        bloc.appendChild(nom);
+
+        const telephone = document.createElement('a');
+        telephone.href = 'tel:' + animateur.telephone.replace(/\s/g, '');
+        telephone.textContent = '  📞 ' + animateur.telephone;
+        telephone.style.cssText = 'margin-left:12px; color:#245b36;';
+        bloc.appendChild(telephone);
+
+        liste.appendChild(bloc);
+      });
+    });
+  })
+  .catch(erreur => {
+    const liste = document.getElementById('liste-animateurs');
+    if (liste) {
+      liste.textContent = 'Les animateurs ne peuvent pas être chargés pour le moment.';
+    }
+    console.log(erreur);
+  });
 fetch('https://api.github.com/repos/randoscyclocahors46-hash/rcc-nouveau-site/contents/content/ag2026')
   .then(reponse => {
     if (!reponse.ok) throw new Error('Impossible de charger les documents');
