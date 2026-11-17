@@ -1195,6 +1195,10 @@ if (destination === '#randonnees') {
  const audio = new Audio('/media/voix-randonées.mp3'); 
   audio.play();
 }
+ if (destination === '#cyclotourisme') {
+  const audio = new Audio('/media/voix%20vtt.mp3');
+  audio.play();
+} 
 section.scrollIntoView({ behavior: 'smooth', block: 'start' });
 
 } else {
