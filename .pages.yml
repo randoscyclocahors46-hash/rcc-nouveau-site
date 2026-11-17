@@ -24,8 +24,8 @@ content:
         label: Image principale
         type: image
 
-  - name: plannings
-    label: Plannings PDF
+    - name: plannings
+    label: Plannings et randonnées
     type: collection
     path: content/plannings
     format: json
@@ -38,8 +38,21 @@ content:
         type: string
         required: true
       - name: fichier
-        label: Document PDF
+        label: Planning PDF
         type: file
+      - name: gpx
+        label: Parcours GPX
+        type: file
+      - name: photos
+        label: Photos de la randonnée
+        type: image
+        options:
+          multiple: true
+      - name: documents
+        label: Documents PDF complémentaires
+        type: file
+        options:
+          multiple: true
 
   - name: ag2026
     label: Assemblée générale 2026
