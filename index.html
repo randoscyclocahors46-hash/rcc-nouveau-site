@@ -823,8 +823,11 @@ if (planning.photos && planning.photos.length > 0) {
   planning.photos.forEach(photo => {
     const image = document.createElement("img");
     image.src = photo;
-    image.style.cssText = "width:120px; height:90px; object-fit:cover; border-radius:8px;";
-    galerie.appendChild(image);
+image.style.cssText = "width:120px; height:90px; object-fit:cover; border-radius:8px; cursor:pointer;";
+image.onclick = function() {
+  window.open(photo, "_blank");
+};
+galerie.appendChild(image);
   });
 
   colonne.appendChild(galerie);
