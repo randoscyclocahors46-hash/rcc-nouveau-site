@@ -533,9 +533,10 @@ style="position:absolute; left:70%; top:25%; width:14%; height:60%;"></a>
             if (reponse.ok) {
               bloc.remove();
               chargerSujets();
-            } else {
-              alert("La modération n'a pas pu être effectuée.");
-            }
+           } else {
+  const erreur = await reponse.text();
+  alert("Erreur de modération : " + reponse.status + " - " + erreur);
+}
           });
 
           bloc.append(bouton);
