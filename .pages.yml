@@ -24,7 +24,7 @@ content:
         label: Image principale
         type: image
 
-    - name: plannings
+  - name: plannings
     label: Plannings et randonnées
     type: collection
     path: content/plannings
