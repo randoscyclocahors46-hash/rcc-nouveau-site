@@ -807,6 +807,14 @@ colonne.style.cssText = "min-width:0;";
     telecharger.textContent = "📥 Télécharger le planning du " + jour;
     telecharger.target = "_blank";
     colonne.appendChild(telecharger);
+    // Parcours GPX
+if (planning.gpx) {
+  const gpx = document.createElement("a");
+  gpx.href = planning.gpx;
+  gpx.textContent = "🧭 Télécharger le parcours GPX";
+  gpx.style.cssText = "display:block; margin-top:12px;";
+  colonne.appendChild(gpx);
+}
     grille.appendChild(colonne);
   }
 });
