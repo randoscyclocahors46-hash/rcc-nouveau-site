@@ -512,6 +512,7 @@ style="position:absolute; left:70%; top:25%; width:14%; height:60%;"></a>
       document.getElementById("forum-mot-de-passe").value = "";
       retourAdmin.textContent = "Connexion réussie.";
       afficherAttente(resultat);
+      chargerSujets();
 
     } catch {
       retourAdmin.textContent = "Erreur de connexion au serveur.";
