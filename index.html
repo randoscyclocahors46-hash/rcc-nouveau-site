@@ -427,6 +427,31 @@ style="position:absolute; left:70%; top:25%; width:14%; height:60%;"></a>
         message.textContent = sujet.message;
 
         bloc.append(titre, auteur, message);
+        if (jetonAdmin) {
+  const boutonSupprimer = document.createElement("button");
+  boutonSupprimer.textContent = "Supprimer";
+  boutonSupprimer.style.cssText = "background:#b83232; color:white; padding:8px 12px; border:0; border-radius:6px; cursor:pointer;";
+
+  boutonSupprimer.addEventListener("click", async () => {
+    if (!confirm("Voulez-vous vraiment supprimer cette discussion ?")) return;
+
+    const reponse = await fetch(API + "/admin/sujets/" + sujet.id, {
+      method: "DELETE",
+      headers: {
+        "Authorization": "Bearer " + jetonAdmin
+      }
+    });
+
+    if (reponse.ok) {
+      bloc.remove();
+      alert("Discussion supprimée.");
+    } else {
+      alert("La suppression n'a pas fonctionné.");
+    }
+  });
+
+  bloc.append(boutonSupprimer);
+}
         liste.append(bloc);
       });
     } catch {
