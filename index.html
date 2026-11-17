@@ -750,18 +750,42 @@ fetch('https://api.github.com/repos/randoscyclocahors46-hash/rcc-nouveau-site/co
         return reponse.json();
       })
     )).then(plannings => {
-      plannings.sort((a, b) => a.titre.localeCompare(b.titre, 'fr'));
+     const numeroSemaine = planning => {
+  const resultat = planning.titre.match(/semaine\s*(\d+)/i);
+  return resultat ? Number(resultat[1]) : 0;
+};
 
-      plannings.forEach(planning => {
-        const lien = document.createElement('a');
-        lien.textContent = '📄 ' + planning.titre;
-        lien.href = planning.fichier;
-        lien.target = '_blank';
-        lien.style.display = 'block';
-        lien.style.margin = '12px 0';
-        liste.appendChild(lien);
+const semaineActuelle = Math.max(...plannings.map(numeroSemaine));
+
+const planningsActuels = plannings.filter(
+  planning => numeroSemaine(planning) === semaineActuelle
+);
+
+["mercredi", "vendredi"].forEach(jour => {
+  const planning = planningsActuels.find(p =>
+    p.titre.toLowerCase().includes(jour)
+  );
+
+  if (planning) {
+    const titre = document.createElement("h3");
+    titre.textContent = "🥾 Randonnée du " + jour;
+    titre.style.cssText = "margin-top:30px; color:#245b36;";
+    liste.appendChild(titre);
+
+    const pdf = document.createElement("iframe");
+    pdf.src = planning.fichier;
+    pdf.title = planning.titre;
+    pdf.style.cssText = "width:100%; height:700px; border:1px solid #ccc; border-radius:8px;";
+    liste.appendChild(pdf);
+
+    const telecharger = document.createElement("a");
+    telecharger.href = planning.fichier;
+    telecharger.textContent = "📥 Télécharger le planning du " + jour;
+    telecharger.target = "_blank";
+    liste.appendChild(telecharger);
+  }
+});
       });
-    });
   })
   .catch(erreur => {
     const liste = document.getElementById('liste-plannings');
@@ -801,7 +825,6 @@ fetch('https://api.github.com/repos/randoscyclocahors46-hash/rcc-nouveau-site/co
         lien.style.display = 'block';
         lien.style.margin = '12px 0';
         liste.appendChild(lien);
-      });
     });
   })
   .catch(erreur => {
