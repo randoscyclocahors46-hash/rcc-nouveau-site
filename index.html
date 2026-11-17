@@ -761,6 +761,9 @@ const planningsActuels = plannings.filter(
   planning => numeroSemaine(planning) === semaineActuelle
 );
 
+ const grille = document.createElement("div");
+grille.style.cssText = "display:grid; grid-template-columns:repeat(2, minmax(0, 1fr)); gap:20px;";
+liste.appendChild(grille);     
 ["mercredi", "vendredi"].forEach(jour => {
   const planning = planningsActuels.find(p =>
     p.titre.toLowerCase().includes(jour)
@@ -770,19 +773,19 @@ const planningsActuels = plannings.filter(
     const titre = document.createElement("h3");
     titre.textContent = "🥾 Randonnée du " + jour;
     titre.style.cssText = "margin-top:30px; color:#245b36;";
-    liste.appendChild(titre);
+    grille.appendChild(titre);
 
     const pdf = document.createElement("iframe");
     pdf.src = planning.fichier;
     pdf.title = planning.titre;
     pdf.style.cssText = "width:100%; height:500px; border:1px solid #ccc; border-radius:8px;";
-    liste.appendChild(pdf);
+    grille.appendChild(pdf);
 
     const telecharger = document.createElement("a");
     telecharger.href = planning.fichier;
     telecharger.textContent = "📥 Télécharger le planning du " + jour;
     telecharger.target = "_blank";
-    liste.appendChild(telecharger);
+    grille.appendChild(telecharger);
   }
 });
       });
