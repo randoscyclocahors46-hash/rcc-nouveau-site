@@ -1185,39 +1185,11 @@ if (section) {
 section.hidden = false;
 section.style.display = 'block';
 
-// Messages d'accueil parlés
-const messages = {
-  '#accueil': "Bonjour et bienvenue chez Randos-cyclo-Cahors !",
-  '#randonnees': "Bienvenue dans nos randonnées ! Partons découvrir les beaux chemins du Lot.",
-  '#cyclotourisme': "En selle ! Découvrons ensemble les routes et les paysages du Lot.",
-  '#photos': "Bienvenue dans notre album photos ! Retrouvez les souvenirs de nos sorties.",
-  '#festivites': "Bienvenue dans nos festivités ! Place à la convivialité et aux bons moments.",
-  '#forum': "Bienvenue sur notre forum ! Ici, on échange et on partage."
-};
-
-const voix = window.speechSynthesis;
-const message = new SpeechSynthesisUtterance(messages[destination]);
-message.lang = 'fr-FR';
-message.rate = 0.9;
-
-// Alternance voix féminine / masculine
-const voixFrancaises = voix.getVoices().filter(v =>
-  v.lang.toLowerCase().startsWith('fr')
-);
-const feminine = /denise|hortense|amelie|amélie|julie|audrey|celine|céline/i;
-const masculine = /paul|thomas|henri|nicolas|mathieu/i;
-
-const numeroPorte = ['#accueil', '#randonnees', '#cyclotourisme',
-                     '#photos', '#festivites', '#forum'].indexOf(destination);
-
-const voixRecherchee = numeroPorte % 2 === 0 ? feminine : masculine;
-
-message.voice = voixFrancaises.find(v =>
-  voixRecherchee.test(v.name)
-) || voixFrancaises[0] || null;
-
-voix.cancel();
-voix.speak(message);
+// Messages d'accueil parlés avec la voix masculine
+if (destination === '#accueil') {
+  const audio = new Audio('/media/voix%20homme.mp3');
+  audio.play();
+}
 
 section.scrollIntoView({ behavior: 'smooth', block: 'start' });
 
