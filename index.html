@@ -1191,6 +1191,10 @@ if (destination === '#accueil') {
   audio.play();
 }
 
+if (destination === '#randonnees') {
+  const audio = new Audio('/media/voix-randonnees.mp3');
+  audio.play();
+}
 section.scrollIntoView({ behavior: 'smooth', block: 'start' });
 
 } else {
