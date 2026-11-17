@@ -23,6 +23,7 @@ content:
       - name: image
         label: Image principale
         type: image
+
   - name: plannings
     label: Plannings PDF
     type: collection
@@ -40,7 +41,6 @@ content:
         label: Document PDF
         type: file
 
-
   - name: ag2026
     label: Assemblée générale 2026
     type: collection
@@ -57,6 +57,7 @@ content:
       - name: fichier
         label: Document PDF ou Word
         type: file
+
   - name: conseil
     label: Conseil d'administration
     type: collection
@@ -72,7 +73,7 @@ content:
         required: true
       - name: fichier
         label: Document PDF ou Word
-        type: file 
+        type: file
 
   - name: bureau
     label: Le Bureau
@@ -97,6 +98,25 @@ content:
       - name: photo
         label: Photo du membre
         type: image
+
+  - name: animateurs
+    label: Animateurs
+    type: collection
+    path: content/animateurs
+    format: json
+    filename: "{primary}.json"
+    view:
+      primary: nom
+    fields:
+      - name: nom
+        label: Nom et prénom
+        type: string
+        required: true
+      - name: telephone
+        label: Téléphone
+        type: string
+        required: true
+
   - name: photos
     label: Albums photos RCC
     type: collection
@@ -122,6 +142,7 @@ content:
         type: image
         options:
           multiple: true
+
   - name: apparence
     label: Apparence du site
     type: file
@@ -146,6 +167,7 @@ content:
       - name: image_accueil
         label: Image d'accueil
         type: image
+
   - name: contacts
     label: Coordonnées du club
     type: file
@@ -164,5 +186,3 @@ content:
       - name: adresse
         label: Adresse postale du club
         type: string
-
-        
