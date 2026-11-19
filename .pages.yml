@@ -156,6 +156,43 @@ content:
         options:
           multiple: true
 
+  - name: festivites
+    label: Activités et festivités RCC
+    type: collection
+    path: content/festivites
+    format: json
+    filename: "{primary}.json"
+    view:
+      primary: titre
+    fields:
+      - name: titre
+        label: Nom de l'activité
+        type: string
+        required: true
+      - name: date
+        label: Date de l'activité
+        type: date
+        required: true
+      - name: heure
+        label: Heure
+        type: string
+      - name: lieu
+        label: Lieu de rendez-vous
+        type: string
+      - name: description
+        label: Programme et informations
+        type: rich-text
+      - name: tarif
+        label: Tarif par personne
+        type: string
+      - name: date_limite
+        label: Date limite d'inscription
+        type: date
+      - name: image
+        label: Photo ou affiche de l'activité
+        type: image
+
+
   - name: apparence
     label: Apparence du site
     type: file
