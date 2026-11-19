@@ -192,6 +192,49 @@ content:
         label: Photo ou affiche de l'activité
         type: image
 
+  - name: medias
+    label: Médias du RCC
+    type: collection
+    path: content/medias
+    format: json
+    filename: "{primary}.json"
+    view:
+      primary: titre
+    fields:
+      - name: titre
+        label: Titre de la vidéo ou musique
+        type: string
+        required: true
+      - name: porte
+        label: Porte du site
+        type: select
+        options:
+          values:
+            - accueil
+            - randonnees
+            - cyclotourisme
+            - photos
+            - festivites
+            - forum
+      - name: type_media
+        label: Type de média
+        type: select
+        options:
+          values:
+            - video
+            - musique
+      - name: emplacement
+        label: Où afficher le média ?
+        type: string
+      - name: fichier
+        label: Fichier MP4 ou MP3
+        type: file
+        options:
+          extensions: [mp4, mp3]
+      - name: lien
+        label: Lien YouTube ou musique en ligne
+        type: string
+
 
   - name: apparence
     label: Apparence du site
