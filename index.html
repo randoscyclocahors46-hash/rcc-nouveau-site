@@ -803,14 +803,42 @@ colonne.style.cssText = "min-width:0;";
     titre.textContent = "🥾 Randonnée du " + jour;
     titre.style.cssText = "margin-top:30px; color:#245b36;";
     colonne.appendChild(titre); 
+const zonePDF = document.createElement("div");
+zonePDF.style.cssText = "width:100%; margin-top:15px;";
 
-    const ouvrirPDF = document.createElement("a");
-ouvrirPDF.href = planning.fichier;
-ouvrirPDF.textContent = "📄 Ouvrir le planning : " + planning.titre;
-ouvrirPDF.target = "_blank";
-ouvrirPDF.style.cssText = "display:block; padding:15px; background:#e8f2e8; border-radius:8px; color:#245b36; font-weight:bold; text-align:center;";
-colonne.appendChild(ouvrirPDF);
+const chargement = document.createElement("p");
+chargement.textContent = "Chargement du planning...";
+zonePDF.appendChild(chargement);
 
+colonne.appendChild(zonePDF);
+
+pdfjsLib.getDocument(planning.fichier).promise.then(async documentPDF => {
+  zonePDF.innerHTML = "";
+
+  for (let numero = 1; numero <= documentPDF.numPages; numero++) {
+    const page = await documentPDF.getPage(numero);
+    const viewport = page.getViewport({ scale: 1 });
+    const largeur = zonePDF.clientWidth;
+    const echelle = largeur / viewport.width;
+    const vue = page.getViewport({ scale: echelle });
+
+    const canvas = document.createElement("canvas");
+    canvas.width = vue.width;
+    canvas.height = vue.height;
+    canvas.style.cssText = "display:block; width:100%; height:auto; margin-bottom:15px; border:1px solid #ddd;";
+
+    zonePDF.appendChild(canvas);
+
+    await page.render({
+      canvasContext: canvas.getContext("2d"),
+      viewport: vue
+    }).promise;
+  }
+}).catch(erreur => {
+  chargement.textContent = "Impossible d'afficher le PDF. Utilisez le lien de téléchargement.";
+  console.error(erreur);
+});
+    
     const telecharger = document.createElement("a");
     telecharger.href = planning.fichier;
     telecharger.textContent = "📥 Télécharger le planning du " + jour;
@@ -1324,6 +1352,11 @@ fetch('https://raw.githubusercontent.com/randoscyclocahors46-hash/rcc-nouveau-si
     console.log(erreur);
   });
     
+</script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js"></script>
+<script>
+pdfjsLib.GlobalWorkerOptions.workerSrc =
+  "https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.worker.min.js";
 </script>
 </body>
 </html>
