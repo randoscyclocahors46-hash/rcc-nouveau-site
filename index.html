@@ -1476,42 +1476,51 @@ fetch('https://raw.githubusercontent.com/randoscyclocahors46-hash/rcc-nouveau-si
 fetch('https://raw.githubusercontent.com/randoscyclocahors46-hash/rcc-nouveau-site/main/content/medias.json')
   .then(reponse => reponse.json())
   .then(medias => {
-    const zone = document.getElementById('medias-accueil-voeux');
-    if (!zone) return;
 
-    medias
-      .filter(media => media.porte === 'accueil')
-      .forEach(media => {
-        const bloc = document.createElement('div');
-        bloc.style.margin = '20px 0';
+    const emplacements = {
+      accueil: 'medias-accueil-voeux',
+      randonnees: 'medias-randonnees'
+    };
 
-        const titre = document.createElement('h4');
-        titre.textContent = media.titre;
-        bloc.appendChild(titre);
+    medias.forEach(media => {
+      const identifiant = emplacements[media.porte];
+      if (!identifiant) return;
 
-        if (media.type_media === 'video' && media.fichier) {
-          const video = document.createElement('video');
-          video.src = media.fichier;
-          video.controls = true;
-          video.style.width = '100%';
-          video.style.maxWidth = '650px';
-          bloc.appendChild(video);
-        } else if (media.type_media === 'musique' && media.fichier) {
-          const audio = document.createElement('audio');
-          audio.src = media.fichier;
-          audio.controls = true;
-          bloc.appendChild(audio);
-        } else if (media.lien) {
-          const lien = document.createElement('a');
-          lien.href = media.lien;
-          lien.textContent = '▶ Voir ou écouter';
-          lien.target = '_blank';
-          lien.rel = 'noopener';
-          bloc.appendChild(lien);
-        }
+      const zone = document.getElementById(identifiant);
+      if (!zone) return;
 
-        zone.appendChild(bloc);
-      });
+      const bloc = document.createElement('div');
+      bloc.style.margin = '20px 0';
+
+      const titre = document.createElement('h4');
+      titre.textContent = media.titre;
+      bloc.appendChild(titre);
+
+      if (media.type_media === 'video' && media.fichier) {
+        const video = document.createElement('video');
+        video.src = media.fichier;
+        video.controls = true;
+        video.style.width = '100%';
+        video.style.maxWidth = '650px';
+        bloc.appendChild(video);
+
+      } else if (media.type_media === 'musique' && media.fichier) {
+        const audio = document.createElement('audio');
+        audio.src = media.fichier;
+        audio.controls = true;
+        bloc.appendChild(audio);
+
+      } else if (media.lien) {
+        const lien = document.createElement('a');
+        lien.href = media.lien;
+        lien.textContent = '▶ Voir ou écouter';
+        lien.target = '_blank';
+        lien.rel = 'noopener';
+        bloc.appendChild(lien);
+      }
+
+      zone.appendChild(bloc);
+    });
   })
   .catch(erreur => console.log('Erreur de chargement des médias :', erreur));
 </script>
