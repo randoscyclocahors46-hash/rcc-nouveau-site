@@ -745,6 +745,81 @@ style="position:absolute; left:70%; top:25%; width:14%; height:60%;"></a>
     });
 })();
 </script>
+
+
+<script>
+(function () {
+  const liste = document.getElementById('liste-festivites');
+
+  fetch('https://api.github.com/repos/randoscyclocahors46-hash/rcc-nouveau-site/contents/content/festivites')
+    .then(function (reponse) {
+      if (!reponse.ok) throw new Error('Impossible de charger les festivités');
+      return reponse.json();
+    })
+    .then(function (fichiers) {
+      const documents = fichiers.filter(function (fichier) {
+        return fichier.name.endsWith('.json');
+      });
+
+      return Promise.all(documents.map(function (fichier) {
+        return fetch(fichier.download_url).then(function (reponse) {
+          if (!reponse.ok) throw new Error('Activité inaccessible');
+          return reponse.json();
+        });
+      }));
+    })
+    .then(function (activites) {
+      liste.textContent = '';
+
+      if (!activites.length) {
+        liste.textContent = 'Aucune activité prévue pour le moment.';
+        return;
+      }
+
+      activites.forEach(function (activite) {
+        const carte = document.createElement('div');
+        carte.style.cssText = 'background:#f4f8f2; border:1px solid #d5e3d2; border-radius:12px; padding:18px; margin:15px 0;';
+
+        const titre = document.createElement('h3');
+        titre.textContent = '🎉 ' + (activite.titre || 'Activité RCC');
+
+        const date = document.createElement('p');
+        date.textContent = '📅 Date : ' + (activite.date || '');
+
+        const heure = document.createElement('p');
+        heure.textContent = '🕒 Heure : ' + (activite.heure || '');
+
+        const lieu = document.createElement('p');
+        lieu.textContent = '📍 Lieu : ' + (activite.lieu || '');
+
+        const description = document.createElement('p');
+        description.textContent = activite.description || '';
+
+        const tarif = document.createElement('p');
+        tarif.textContent = '💶 Tarif : ' + (activite.tarif || 'À préciser');
+
+        const limite = document.createElement('p');
+        limite.textContent = '📝 Inscription avant le : ' + (activite.date_limite || '');
+
+        carte.appendChild(titre);
+        carte.appendChild(date);
+        carte.appendChild(heure);
+        carte.appendChild(lieu);
+        carte.appendChild(description);
+        carte.appendChild(tarif);
+        carte.appendChild(limite);
+
+        liste.appendChild(carte);
+      });
+    })
+    .catch(function (erreur) {
+      liste.textContent = 'Les activités ne peuvent pas être chargées pour le moment.';
+      console.log(erreur);
+    });
+})();
+</script>
+
+  
 <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js"></script>
 <script>
 pdfjsLib.GlobalWorkerOptions.workerSrc =
