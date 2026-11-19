@@ -822,7 +822,7 @@ pdfjsLib.getDocument(planning.fichier).promise.then(async documentPDF => {
   for (let numero = 1; numero <= documentPDF.numPages; numero++) {
     const page = await documentPDF.getPage(numero);
     const viewport = page.getViewport({ scale: 1 });
-    const largeur = zonePDF.clientWidth;
+    const largeur = zonePDF.getBoundingClientRect().width || 600;
     const echelle = largeur / viewport.width;
     const vue = page.getViewport({ scale: echelle });
 
