@@ -1,5 +1,12 @@
 [
   {
+    "titre": "presentation",
+    "porte": "accueil",
+    "type_media": "video",
+    "emplacement": "Vœux du président, sous la présentation de l'accueil.",
+    "lien": "https://www.youtube.com/watch?v=rPyULi5cZ1Q"
+  },
+  {
     "titre": "Vœux du président – RCC",
     "porte": "accueil",
     "type_media": "video",
