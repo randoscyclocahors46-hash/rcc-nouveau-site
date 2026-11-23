@@ -234,7 +234,12 @@
   alt=""
   style="display:none; position:absolute; left:0; top:0; width:100%; height:auto; object-fit:cover; z-index:4; pointer-events:none;"
 >
-
+<img
+  id="porte-festivites-animation"
+  src="/media/porte%20festivites.png"
+  alt=""
+  style="display:none; position:absolute; left:0; top:0; width:100%; height:auto; object-fit:cover; z-index:4; pointer-events:none;"
+>
 <a href="#accueil" aria-label="Accueil"
   style="display:block; z-index:10; position:absolute; left:25%; top:25%; width:14%; height:50%; "></a>
 
@@ -1291,12 +1296,25 @@ marcheur.style.display = 'block';
 
 if (destination === '#forum') {
   clearTimeout(window.forumAnimationTimer);
+  marcheur.style.display = 'block';
 
   window.forumAnimationTimer = setTimeout(function () {
     marcheur.style.display = 'none';
-
     if (porteForumAnimation) {
       porteForumAnimation.style.display = 'block';
+    }
+  }, 3000);
+}
+
+if (destination === '#festivites') {
+  clearTimeout(window.festivitesAnimationTimer);
+  marcheur.style.display = 'block';
+
+  window.festivitesAnimationTimer = setTimeout(function () {
+    marcheur.style.display = 'none';
+    const porteFestivitesAnimation = document.getElementById('porte-festivites-animation');
+    if (porteFestivitesAnimation) {
+      porteFestivitesAnimation.style.display = 'block';
     }
   }, 3000);
 }
@@ -1399,7 +1417,7 @@ section.scrollIntoView({ behavior: 'smooth', block: 'start' });
 
 
         window.location.hash = porte.getAttribute('href');
-          }, destination === '#forum' ? 5000 : 3000);
+         }, (destination === '#forum' || destination === '#festivites') ? 5000 : 3000);
     });
   });
 });
