@@ -228,6 +228,12 @@
     alt="Randonneur du club RCC"
     style="position:absolute; left:0%; top:0%; width:20%; height:auto; z-index:5; pointer-events:none; animation:none;"
 >
+  <img
+  id="porte-forum-animation"
+  src="/media/porte%20forum.png"
+  alt=""
+  style="display:none; position:absolute; left:0; top:0; width:100%; height:auto; z-index:4; pointer-events:none;"
+>
 
 <a href="#accueil" aria-label="Accueil"
   style="display:block; z-index:10; position:absolute; left:25%; top:25%; width:14%; height:50%; "></a>
@@ -1274,8 +1280,13 @@ portes.forEach(function (porte) {
 
       const departX = 0;
       const departY = cadre.height - hauteur;
-    
-const destination = porte.getAttribute('href');
+    const destination = porte.getAttribute('href');
+    if (destination === '#forum') {
+  const porteForumAnimation = document.getElementById('porte-forum-animation');
+  if (porteForumAnimation) {
+    porteForumAnimation.style.display = 'block';
+  }
+}
 
 const decalage = destination === '#accueil' ? 0.50 :
                  destination === '#randonnees' ? 0.25 :
@@ -1302,6 +1313,7 @@ const arriveeX = destination === '#randonnees'
             - cadre.top - hauteur / 2
         )
       );
+
 
       marcheur.style.animation = 'none';
       marcheur.style.transition = 'none';
