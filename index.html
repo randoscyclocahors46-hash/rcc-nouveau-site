@@ -1281,13 +1281,25 @@ portes.forEach(function (porte) {
       const departX = 0;
       const departY = cadre.height - hauteur;
     const destination = porte.getAttribute('href');
-    if (destination === '#forum') {
-  const porteForumAnimation = document.getElementById('porte-forum-animation');
-  if (porteForumAnimation) {
-    porteForumAnimation.style.display = 'block';
-  }
+    const porteForumAnimation = document.getElementById('porte-forum-animation');
+
+if (porteForumAnimation) {
+  porteForumAnimation.style.display = 'none';
 }
 
+marcheur.style.display = 'block';
+
+if (destination === '#forum') {
+  clearTimeout(window.forumAnimationTimer);
+
+  window.forumAnimationTimer = setTimeout(function () {
+    marcheur.style.display = 'none';
+
+    if (porteForumAnimation) {
+      porteForumAnimation.style.display = 'block';
+    }
+  }, 3000);
+}
 const decalage = destination === '#accueil' ? 0.50 :
                  destination === '#randonnees' ? 0.25 :
                  destination === '#cyclotourisme' ? 0.10 : 0.50;
