@@ -1399,7 +1399,7 @@ section.scrollIntoView({ behavior: 'smooth', block: 'start' });
 
 
         window.location.hash = porte.getAttribute('href');
-      }, 3000);
+          }, destination === '#forum' ? 5000 : 3000);
     });
   });
 });
