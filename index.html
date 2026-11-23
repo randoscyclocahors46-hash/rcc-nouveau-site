@@ -1287,9 +1287,13 @@ portes.forEach(function (porte) {
       const departY = cadre.height - hauteur;
     const destination = porte.getAttribute('href');
     const porteForumAnimation = document.getElementById('porte-forum-animation');
+    const porteFestivitesAnimation = document.getElementById('porte-festivites-animation');
 
 if (porteForumAnimation) {
   porteForumAnimation.style.display = 'none';
+}
+    if (porteFestivitesAnimation) {
+  porteFestivitesAnimation.style.display = 'none';
 }
 
 marcheur.style.display = 'block';
