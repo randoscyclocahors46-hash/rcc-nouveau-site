@@ -1261,49 +1261,7 @@ portes.forEach(function (porte) {
   porte.addEventListener('click', function (event) {
       event.preventDefault();
 
-      const cadre = portail.getBoundingClientRect();
-      const porteCadre = porte.getBoundingClientRect();
-      const largeur = marcheur.getBoundingClientRect().width;
-      const hauteur = marcheur.getBoundingClientRect().height;
-
-      const departX = 0;
-      const departY = cadre.height - hauteur;
-    const destination = porte.getAttribute('href');
-    const porteForumAnimation = document.getElementById('porte-forum-animation');
-    const porteFestivitesAnimation = document.getElementById('porte-festivites-animation');
-
-if (porteForumAnimation) {
-  porteForumAnimation.style.display = 'none';
-}
-    if (porteFestivitesAnimation) {
-  porteFestivitesAnimation.style.display = 'none';
-}
-
-marcheur.style.display = 'block';
-
-if (destination === '#forum') {
-  clearTimeout(window.forumAnimationTimer);
-  marcheur.style.display = 'block';
-
-  window.forumAnimationTimer = setTimeout(function () {
-    marcheur.style.display = 'none';
-    if (porteForumAnimation) {
-      porteForumAnimation.style.display = 'block';
-    }
-  }, 3000);
-}
-
-if (destination === '#festivites') {
-  clearTimeout(window.festivitesAnimationTimer);
-  marcheur.style.display = 'block';
-
-  window.festivitesAnimationTimer = setTimeout(function () {
-    marcheur.style.display = 'none';
-    if (porteFestivitesAnimation) {
-      porteFestivitesAnimation.style.display = 'block';
-    }
-  }, 3000);
-}
+     
 const decalage = destination === '#accueil' ? 0.50 :
                  destination === '#randonnees' ? 0.25 :
                  destination === '#cyclotourisme' ? 0.10 : 0.50;
