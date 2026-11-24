@@ -222,7 +222,12 @@
     alt="Le portail du club Randos-cyclo-Cahors"
     style="display:block; width:100%; height:auto; border-radius:14px;"
   >
-
+<img
+    id="randonneur-anime"
+    src="/media/marcheur1.gif"
+    alt="Randonneur du club RCC"
+    style="position:absolute; left:0%; top:0%; width:20%; height:auto; z-index:5; pointer-events:none; animation:none;"
+>
  
 <a href="#accueil" aria-label="Accueil"
   style="display:block; z-index:10; position:absolute; left:25%; top:25%; width:14%; height:50%; "></a>
@@ -1245,7 +1250,7 @@ fetch('/content/apparence/accueil.json')
 
 <script>
 document.addEventListener('DOMContentLoaded', function () {
-  const marcheur = document.getElementById('randonneur-anime');
+  const marcheur= document.getElementById('randonneur-anime');
   const portail = document.querySelector('.hero');
 
 
@@ -1260,7 +1265,14 @@ portes.forEach(function (p, i) {
 portes.forEach(function (porte) {
   porte.addEventListener('click', function (event) {
       event.preventDefault();
+const cadre = portail.getBoundingClientRect();
+const porteCadre = porte.getBoundingClientRect();
+const largeur = marcheur.getBoundingClientRect().width;
+const hauteur = marcheur.getBoundingClientRect().height;
 
+const departX = 0;
+const departY = cadre.height - hauteur;
+const destination = porte.getAttribute('href');
      
 const decalage = destination === '#accueil' ? 0.50 :
                  destination === '#randonnees' ? 0.25 :
@@ -1287,10 +1299,21 @@ const arriveeX = destination === '#randonnees'
             - cadre.top - hauteur / 2
         )
       );
+   
+marcheur.style.animation = 'none';
+marcheur.style.transition = 'none';
+marcheur.style.right = 'auto';
+marcheur.style.bottom = 'auto';
+marcheur.style.left = departX + 'px';
+marcheur.style.top = departY + 'px';
 
+void marcheur.offsetWidth;
 
-     
+marcheur.style.transition =
+  'left 3s ease-in-out, top 3s ease-in-out';
 
+marcheur.style.left = arriveeX + 'px';
+marcheur.style.top = arriveeY + 'px';
       setTimeout(function () {
         marcheur.style.transition = '';
 
@@ -1345,7 +1368,7 @@ section.scrollIntoView({ behavior: 'smooth', block: 'start' });
 
 
         window.location.hash = porte.getAttribute('href');
-         }, (destination === '#forum' || destination === '#festivites') ? 5000 : 3000);
+       }, 3000);
     });
   });
 });
