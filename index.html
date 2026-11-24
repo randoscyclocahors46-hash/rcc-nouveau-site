@@ -1248,7 +1248,6 @@ document.addEventListener('DOMContentLoaded', function () {
   const marcheur = document.getElementById('randonneur-anime');
   const portail = document.querySelector('.hero');
 
-  if (!marcheur || !portail) return;
 
  const portes = portail.querySelectorAll('a[href^="#"]');
 
@@ -1332,23 +1331,7 @@ const arriveeX = destination === '#randonnees'
       );
 
 
-      marcheur.style.animation = 'none';
-      marcheur.style.transition = 'none';
-      marcheur.style.right = 'auto';
-      marcheur.style.bottom = 'auto';
-      marcheur.style.left = departX + 'px';
-      marcheur.style.top = departY + 'px';
-
-      void marcheur.offsetWidth;
-
-      marcheur.style.transition =
-        'left 3s ease-in-out, top 3s ease-in-out';
-
-      marcheur.style.left = arriveeX + 'px';
-    console.log('POSITION X =', arriveeX);
-    console.log('DESTINATION =', destination);
-    console.log('LARGEUR PORTAIL =', cadre.width);
-      marcheur.style.top = arriveeY + 'px';
+     
 
       setTimeout(function () {
         marcheur.style.transition = '';
